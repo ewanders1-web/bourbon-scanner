@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bourbon Truth">
+  <link rel="manifest" href="manifest.json">
+  <title>🥃 Bourbon Truth Scanner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+  <style>
+    :root {
+      --bg: #080502; --bg2: #0f0904; --bg3: #160d05; --bg4: #1e1208;
+      --gold: #c9943a; --gold2: #7a501a; --gold3: #3d2508; --goldb: #f0c060;
+      --text: #e8d4a8; --text2: #9e7c40; --text3: #4e3515;
+      --legit: #1fc55a; --sourced: #e84444; --mixed: #e8960a;
+      --radius: 12px; --tab-h: 64px; --safe-b: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', Georgia, sans-serif; min-height: 100vh; padding-bottom: calc(var(--tab-h) + var(--safe-b) + 8px); }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; opacity: 0.6; }
+    #header { position: relative; overflow: hidden; background: linear-gradient(170deg, #1e0e02 0%, var(--bg) 100%); border-bottom: 1px solid rgba(201,148,58,0.25); padding: calc(env(safe-area-inset-top, 10px) + 14px) 16px 14px; text-align: center; z-index: 10; }
+    .h-icon { font-size: 32px; margin-bottom: 4px; }
+    .h-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(17px,5vw,26px); font-weight: 900; color: var(--goldb); letter-spacing: 0.12em; text-shadow: 0 0 40px rgba(240,192,96,0.35); }
+    .h-sub { font-size: 11px; color: var(--text2); letter-spacing: 0.08em; margin-top: 2px; }
+    #tabs { position: fixed; bottom: 0; left: 0; right: 0; height: calc(var(--tab-h) + var(--safe-b)); background: rgba(8,5,2,0.97); border-top: 1px solid rgba(201,148,58,0.2); display: flex; z-index: 100; padding-bottom: var(--safe-b); }
+    .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; color: var(--text3); font-size: 10px; letter-spacing: 0.05em; transition: color 0.2s; }
+    .tab.active { color: var(--gold); }
+    .tab-icon { font-size: 22px; }
+    #main { position: relative; z-index: 1; padding: 16px; }
+    .card { background: var(--bg3); border: 1px solid var(--gold3); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; cursor: pointer; }
+    .card-head { display: flex; align-items: center; padding: 14px; gap: 12px; }
+    .card-badge { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .badge-legit { background: rgba(31,197,90,0.15); border: 1px solid var(--legit); }
+    .badge-sourced { background: rgba(232,68,68,0.15); border: 1px solid var(--sourced); }
+    .badge-mixed { background: rgba(232,150,10,0.15); border: 1px solid var(--mixed); }
+    .card-info { flex: 1; min-width: 0; }
+    .card-name { font-weight: 600; font-size: 15px; color: var(--text); }
+    .card-dist { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .status-pill { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 20px; }
+    .pill-legit { background: rgba(31,197,90,0.15); color: var(--legit); border: 1px solid var(--legit); }
+    .pill-sourced { background: rgba(232,68,68,0.15); color: var(--sourced); border: 1px solid var(--sourced); }
+    .pill-mixed { background: rgba(232,150,10,0.15); color: var(--mixed); border: 1px solid var(--mixed); }
+    .card-body { padding: 0 14px 14px; display: none; }
+    .card-body.open { display: block; }
+    .card-notes { font-size: 13px; color: var(--text2); line-height: 1.5; }
+    .scan-area { text-align: center; padding: 24px 16px; }
+    #scanner-container { position: relative; width: 100%; max-width: 400px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; background: #000; aspect-ratio: 4/3; }
+    #scanner-container video { width: 100%; display: block; }
+    #scanner-container canvas { position: absolute; top: 0; left: 0; width: 100%; }
+    .scan-btn { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #080502; border: none; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; margin: 16px auto; display: block; }
+    .scan-result { background: var(--bg3); border: 1px solid var(--gold3); border-radius: var(--radius); padding: 16px; margin-top: 16px; text-align: left; }
+    .scan-result h3 { color: var(--goldb); margin-bottom: 8px; }
+    .admin-panel { background: var(--bg3); border: 1px solid var(--gold3); border-radius: var(--radius); padding: 20px; margin-top: 16px; }
+    .admin-panel h3 { color: var(--goldb); margin-bottom: 14px; font-family: 'Playfair Display', serif; }
+    .admin-panel input, .admin-panel select { width: 100%; padding: 10px 14px; margin-bottom: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--gold3); border-radius: 8px; font-size: 14px; outline: none; }
+    .admin-panel input:focus, .admin-panel select:focus { border-color: var(--gold); }
+    .btn-save { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #080502; padding: 13px; border: none; border-radius: 30px; font-weight: 700; font-size: 14px; width: 100%; cursor: pointer; letter-spacing: 0.05em; }
+    .empty-state { text-align: center; padding: 48px 16px; color: var(--text3); }
+    .empty-state .e-icon { font-size: 48px; margin-bottom: 12px; }
+    .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--gold3); background: transparent; color: var(--text2); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .filter-btn.active { background: var(--gold3); color: var(--goldb); border-color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <div class="h-icon">🥃</div>
+    <div class="h-title">BOURBON TRUTH</div>
+    <div class="h-sub">Distillery Transparency Database</div>
+  </div>
+  <div id="main"></div>
+  <div id="tabs">
+    <div class="tab active" onclick="switchTab(0)"><div class="tab-icon">📋</div><div>DATABASE</div></div>
+    <div class="tab" onclick="switchTab(1)"><div class="tab-icon">📷</div><div>SCAN</div></div>
+    <div class="tab" onclick="switchTab(2)"><div class="tab-icon">➕</div><div>ADMIN</div></div>
+  </div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    let handlersAttached = false, searchQuery = '', currentFilter = 'all', currentTab = 0, openCard = null, bourbonData = {}, scannerRunning = false;
+    db.ref('bourbons').on('value', snapshot => { bourbonData = snapshot.val() || {}; if (currentTab === 0) renderDatabase(); });
+    function switchTab(idx) {
+      currentTab = idx;
+      document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+      if (scannerRunning && idx !== 1) stopScanner();
+      if (idx===0) renderDatabase(); else if (idx===1) renderScanner(); else renderAdmin();
+    }
+    function renderDatabase() {
+      const main = document.getElementById('main');
+      if (!main) return;
+      handlersAttached = false;
+      const bourbons = Object.entries(bourbonData);
+      const filtered = bourbons.filter(([upc,b]) => {
+        const mf = currentFilter==='all' || b.status===currentFilter;
+        const q = searchQuery.toLowerCase();
+        const ms = !q || b.name.toLowerCase().includes(q) || (b.distiller||'').toLowerCase().includes(q);
+        return mf && ms;
+      });
+      let html = '<input id="si" type="text" placeholder="🔍  Search bourbons..." style="width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);color:var(--text);font-size:14px;margin-bottom:16px;outline:none;" value="'+searchQuery+'">';
+      html += '<div class="filter-row">';
+      html += '<button class="filter-btn '+(currentFilter==='all'?'active':'')+'" onclick="setFilter('all')">All</button>';
+      html += '<button class="filter-btn '+(currentFilter==='Legit'?'active':'')+'" onclick="setFilter('Legit')">✅ Legit</button>';
+      html += '<button class="filter-btn '+(currentFilter==='Sourced'?'active':'')+'" onclick="setFilter('Sourced')">🔴 Sourced</button>';
+      html += '<button class="filter-btn '+(currentFilter==='Mixed'?'active':'')+'" onclick="setFilter('Mixed')">🟡 Mixed</button>';
+      html += '</div>';
+      if (filtered.length===0) {
+        html += '<div class="empty-state"><div class="e-icon">🥃</div><div>No bourbons found</div></div>';
+      } else {
+        filtered.forEach(([upc,b]) => {
+          const sc = b.status==='Legit'?'legit':b.status==='Sourced'?'sourced':'mixed';
+          const icon = b.status==='Legit'?'✅':b.status==='Sourced'?'🔴':'🟡';
+          const isOpen = openCard===upc;
+          html += '<div class="card" onclick="toggleCard(''+upc+'')"><div class="card-head"><div class="card-badge badge-'+sc+'">'+icon+'</div><div class="card-info"><div class="card-name">'+b.name+'</div><div class="card-dist">'+(b.distiller||'Unknown Distiller')+'</div></div><span class="status-pill pill-'+sc+'">'+b.status.toUpperCase()+'</span></div><div class="card-body '+(isOpen?'open':'')+'"><div class="card-notes">'+(b.notes||'No additional notes.')+'</div><div style="margin-top:8px;font-size:11px;color:var(--text3)">UPC: '+upc+'</div></div></div>';
+        });
+      }
+      main.innerHTML = html;
+      attachHandlers();
+    }
+    function toggleCard(upc) { openCard = openCard===upc?null:upc; renderDatabase(); }
+    function setFilter(f) { currentFilter=f; renderDatabase(); }
+    function attachHandlers() {
+      if (handlersAttached) return;
+      const si = document.getElementById('si');
+      if (si) { si.addEventListener('input', evt => { searchQuery=evt.target.value; renderDatabase(); }); handlersAttached=true; }
+    }
+    function renderScanner() {
+      const main = document.getElementById('main');
+      if (!main) return;
+      main.innerHTML = '<div class="scan-area"><h2 style="color:var(--goldb);font-family:'Playfair Display',serif;margin-bottom:8px;">Scan a Barcode</h2><p style="color:var(--text2);font-size:13px;margin-bottom:20px;">Point your camera at the UPC barcode on the bottle</p><div id="scanner-container"></div><button class="scan-btn" onclick="toggleScanner()" id="scan-toggle-btn">▶ Start Scanner</button><div id="scan-result"></div></div>';
+    }
+    function toggleScanner() { if (scannerRunning) stopScanner(); else startScanner(); }
+    function startScanner() {
+      if (typeof Quagga==='undefined') { alert('Scanner library not loaded.'); return; }
+      const btn=document.getElementById('scan-toggle-btn');
+      if (btn) btn.textContent='⏹ Stop Scanner';
+      Quagga.init({ inputStream:{name:"Live",type:"LiveStream",target:document.getElementById('scanner-container'),constraints:{facingMode:{ideal:"environment"},width:{ideal:1280},height:{ideal:720}}}, decoder:{readers:["ean_reader","upc_reader","upc_e_reader"]} }, err => { if(err){console.error(err);return;} Quagga.start(); scannerRunning=true; });
+      Quagga.onDetected(result => { const code=result.codeResult.code; stopScanner(); lookupBarcode(code); });
+    }
+    function stopScanner() { if(typeof Quagga!=='undefined'&&scannerRunning) Quagga.stop(); scannerRunning=false; const btn=document.getElementById('scan-toggle-btn'); if(btn) btn.textContent='▶ Start Scanner'; }
+    function lookupBarcode(code) {
+      db.ref('bourbons/'+code).once('value').then(snapshot => {
+        const rd=document.getElementById('scan-result'); if(!rd) return;
+        if(snapshot.exists()) {
+          const b=snapshot.val(); const sc=b.status==='Legit'?'legit':b.status==='Sourced'?'sourced':'mixed'; const icon=b.status==='Legit'?'✅':b.status==='Sourced'?'🔴':'🟡';
+          rd.innerHTML='<div class="scan-result"><h3>'+icon+' '+b.name+'</h3><p style="color:var(--text2);font-size:13px;margin-bottom:6px;">Distiller: '+(b.distiller||'Unknown')+'</p><span class="status-pill pill-'+sc+'">'+b.status.toUpperCase()+'</span><p style="margin-top:10px;font-size:13px;color:var(--text2);">'+(b.notes||'')+'</p><p style="margin-top:8px;font-size:11px;color:var(--text3)">UPC: '+code+'</p></div>';
+        } else {
+          rd.innerHTML='<div class="scan-result"><h3>❓ Unknown Barcode</h3><p style="color:var(--text2);font-size:13px;">UPC '+code+' not found.</p><button class="scan-btn" style="margin-top:12px;" onclick="openAdminWithUPC(''+code+'')">➕ Add This Bourbon</button></div>';
+        }
+      });
+    }
+    function openAdminWithUPC(code) { switchTab(2); setTimeout(()=>{ const f=document.getElementById('newUPC'); if(f) f.value=code; },100); }
+    function renderAdmin() {
+      const main=document.getElementById('main'); if(!main) return;
+      main.innerHTML='<div class="admin-panel"><h3>➕ Add New Bourbon</h3><input type="text" id="newUPC" placeholder="Barcode / UPC"><input type="text" id="newName" placeholder="Bourbon Name"><select id="newStatus"><option value="Legit">✅ Legit (Distilled on-site)</option><option value="Sourced">🔴 Sourced (MGP / Other)</option><option value="Mixed">🟡 Mixed / Unknown</option></select><input type="text" id="newDistiller" placeholder="Actual Distiller"><input type="text" id="newNotes" placeholder="Notes (optional)"><button class="btn-save" onclick="saveToDatabase()">💾 SAVE TO CLOUD</button></div><div id="admin-list" style="margin-top:20px;"></div>';
+      renderAdminList();
+    }
+    function renderAdminList() {
+      const ld=document.getElementById('admin-list'); if(!ld) return;
+      const entries=Object.entries(bourbonData);
+      if(entries.length===0){ld.innerHTML='';return;}
+      let html='<h3 style="color:var(--text2);font-size:13px;margin-bottom:10px;letter-spacing:0.05em;">EXISTING ENTRIES</h3>';
+      entries.forEach(([upc,b])=>{html+='<div style="background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:14px;color:var(--text);">'+b.name+'</div><div style="font-size:11px;color:var(--text3);">UPC: '+upc+'</div></div><button onclick="deleteEntry(''+upc+'')" style="background:rgba(232,68,68,0.15);color:var(--sourced);border:1px solid var(--sourced);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;">🗑</button></div>';});
+      ld.innerHTML=html;
+    }
+    function saveToDatabase() {
+      const upc=document.getElementById('newUPC').value.trim();
+      const name=document.getElementById('newName').value.trim();
+      const status=document.getElementById('newStatus').value;
+      const distiller=document.getElementById('newDistiller').value.trim();
+      const notes=document.getElementById('newNotes').value.trim();
+      if(!upc||!name){alert('UPC and Name are required.');return;}
+      db.ref('bourbons/'+upc).set({name,status,distiller,notes,timestamp:Date.now()}).then(()=>{ alert('✅ Saved!'); renderAdmin(); }).catch(e=>alert('Error: '+e.message));
+    }
+    function deleteEntry(upc) { if(!confirm('Delete '+(bourbonData[upc]?.name||upc)+'?')) return; db.ref('bourbons/'+upc).remove().then(()=>renderAdminList()); }
+    window.onload = () => renderDatabase();
+  </script>
+</body>
+</html>
