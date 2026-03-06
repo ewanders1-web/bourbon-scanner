@@ -16,46 +16,35 @@
 :root{--bg:#080502;--bg3:#160d05;--bg4:#1e1208;--gold:#c9943a;--gold2:#7a501a;--gold3:#3d2508;--goldb:#f0c060;--text:#e8d4a8;--text2:#9e7c40;--text3:#4e3515;--legit:#1fc55a;--sourced:#e84444;--mixed:#e8960a;--radius:12px;--tab-h:60px;--safe-b:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow-x:hidden}
-body{background:var(--bg);color:var(--text);font-family:DM Sans,sans-serif;min-height:100vh;padding-bottom:calc(var(--tab-h) + var(--safe-b) + 8px)}
+body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;padding-bottom:calc(var(--tab-h) + var(--safe-b) + 8px)}
 #hdr{background:linear-gradient(170deg,#1e0e02,var(--bg));border-bottom:1px solid rgba(201,148,58,.2);padding:calc(env(safe-area-inset-top,10px) + 12px) 16px 12px;text-align:center;position:sticky;top:0;z-index:50}
-.htitle{font-family:Playfair Display,serif;font-size:clamp(16px,5vw,24px);font-weight:900;color:var(--goldb);letter-spacing:.12em}
+.htitle{font-family:"Playfair Display",serif;font-size:clamp(16px,5vw,24px);font-weight:900;color:var(--goldb);letter-spacing:.12em}
 .hsub{font-size:10px;color:var(--text2);letter-spacing:.08em;margin-top:2px}
 #tabs{position:fixed;bottom:0;left:0;right:0;height:calc(var(--tab-h) + var(--safe-b));background:rgba(6,3,1,.98);border-top:1px solid rgba(201,148,58,.15);display:flex;z-index:100;padding-bottom:var(--safe-b)}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--text3);font-size:9px;letter-spacing:.04em;transition:color .2s;padding:4px 2px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--text3);font-size:9px;letter-spacing:.04em;transition:color .2s;padding:4px 2px;user-select:none}
 .tab.active{color:var(--gold)}
-.ticon{font-size:20px}
+.ticon{font-size:20px;line-height:1}
 #main{position:relative;z-index:1;padding:14px}
 .card{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s}
 .card:hover{border-color:var(--gold2)}
 .ch{display:flex;align-items:center;padding:12px 14px;gap:10px}
 .cbadge{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.bl{background:rgba(31,197,90,.12);border:1px solid var(--legit)}
-.bs{background:rgba(232,68,68,.12);border:1px solid var(--sourced)}
-.bm{background:rgba(232,150,10,.12);border:1px solid var(--mixed)}
-.ci{flex:1;min-width:0}
-.cname{font-weight:600;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl{background:rgba(31,197,90,.12);border:1px solid var(--legit)}.bs{background:rgba(232,68,68,.12);border:1px solid var(--sourced)}.bm{background:rgba(232,150,10,.12);border:1px solid var(--mixed)}
+.ci{flex:1;min-width:0}.cname{font-weight:600;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cdist{font-size:11px;color:var(--text2);margin-top:1px}
 .pill{font-size:9px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0}
-.pl{background:rgba(31,197,90,.12);color:var(--legit);border:1px solid var(--legit)}
-.ps{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced)}
-.pm{background:rgba(232,150,10,.12);color:var(--mixed);border:1px solid var(--mixed)}
-.cb{padding:0 14px 12px;display:none;border-top:1px solid var(--gold3)}
-.cb.open{display:block}
+.pl{background:rgba(31,197,90,.12);color:var(--legit);border:1px solid var(--legit)}.ps{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced)}.pm{background:rgba(232,150,10,.12);color:var(--mixed);border:1px solid var(--mixed)}
+.cb{padding:0 14px 12px;display:none;border-top:1px solid var(--gold3)}.cb.open{display:block}
 .cnotes{font-size:13px;color:var(--text2);line-height:1.5;padding-top:10px}
 .cactions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.abtn{padding:6px 14px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s}
-.abtn:active{opacity:.75}
-.abtn-add{background:rgba(31,197,90,.15);color:var(--legit);border:1px solid var(--legit)}
-.abtn-want{background:rgba(201,148,58,.15);color:var(--goldb);border:1px solid var(--gold2)}
-.abtn-del{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced)}
+.abtn{padding:6px 14px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s}.abtn:active{opacity:.75}
+.abtn-add{background:rgba(31,197,90,.15);color:var(--legit);border:1px solid var(--legit)}.abtn-want{background:rgba(201,148,58,.15);color:var(--goldb);border:1px solid var(--gold2)}.abtn-del{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced)}
 .srow{display:flex;gap:8px;margin-bottom:10px;align-items:center}
-.sinput{flex:1;padding:10px 14px;background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none}
-.sinput:focus{border-color:var(--gold)}
-.sinput::placeholder{color:var(--text3)}
-.scanbtn-sm{background:var(--gold3);border:1px solid var(--gold2);color:var(--goldb);padding:10px 14px;border-radius:var(--radius);cursor:pointer;font-size:18px;flex-shrink:0}
+.sinput{flex:1;padding:10px 14px;background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;-webkit-appearance:none}
+.sinput:focus{border-color:var(--gold)}.sinput::placeholder{color:var(--text3)}
+.scanbtn-sm{background:var(--gold3);border:1px solid var(--gold2);color:var(--goldb);padding:10px 14px;border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:700;flex-shrink:0;white-space:nowrap}
 .frow{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.fb{padding:5px 12px;border-radius:20px;border:1px solid var(--gold3);background:transparent;color:var(--text2);font-size:11px;cursor:pointer}
-.fb.on{background:var(--gold3);color:var(--goldb);border-color:var(--gold)}
+.fb{padding:5px 12px;border-radius:20px;border:1px solid var(--gold3);background:transparent;color:var(--text2);font-size:11px;cursor:pointer}.fb.on{background:var(--gold3);color:var(--goldb);border-color:var(--gold)}
 .scanwrap{text-align:center;padding:16px}
 #scon{position:relative;width:100%;max-width:440px;margin:0 auto;border-radius:var(--radius);overflow:hidden;background:#000;border:2px solid var(--gold3)}
 #scon video{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
@@ -64,31 +53,23 @@ body{background:var(--bg);color:var(--text);font-family:DM Sans,sans-serif;min-h
 .scross{width:55%;max-width:180px;aspect-ratio:1;border:2px solid rgba(201,148,58,.8);border-radius:8px;box-shadow:0 0 0 9999px rgba(0,0,0,.4)}
 .sbtn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;border:none;padding:13px 32px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;margin:12px auto;display:inline-block}
 .rbox{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);padding:16px;margin-top:14px;text-align:left}
-.rbox h3{color:var(--goldb);font-family:Playfair Display,serif;font-size:18px;margin-bottom:6px}
+.rbox h3{color:var(--goldb);font-family:"Playfair Display",serif;font-size:18px;margin-bottom:6px}
 .vbar{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:10px;margin:12px 0}
-.vbar.buy{background:rgba(31,197,90,.08);border:1px solid rgba(31,197,90,.25)}
-.vbar.skip{background:rgba(232,68,68,.08);border:1px solid rgba(232,68,68,.25)}
-.vbar.caution{background:rgba(232,150,10,.08);border:1px solid rgba(232,150,10,.25)}
+.vbar.buy{background:rgba(31,197,90,.08);border:1px solid rgba(31,197,90,.25)}.vbar.skip{background:rgba(232,68,68,.08);border:1px solid rgba(232,68,68,.25)}.vbar.caution{background:rgba(232,150,10,.08);border:1px solid rgba(232,150,10,.25)}
 .vicon{font-size:30px;flex-shrink:0}
-.vlbl{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:3px}
-.vlbl.buy{color:var(--legit)}.vlbl.skip{color:var(--sourced)}.vlbl.caution{color:var(--mixed)}
+.vlbl{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:3px}.vlbl.buy{color:var(--legit)}.vlbl.skip{color:var(--sourced)}.vlbl.caution{color:var(--mixed)}
 .vmsg{font-size:12px;color:var(--text2);line-height:1.4}
-.alts{margin-top:12px}
-.atitle{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--gold3)}
-.acard{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:9px 12px;margin-bottom:6px;cursor:pointer}
-.acard:hover{border-color:var(--gold)}
-.aname{font-size:13px;font-weight:600;color:var(--text)}
-.adist{font-size:11px;color:var(--text2)}
+.alts{margin-top:12px}.atitle{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--gold3)}
+.acard{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:9px 12px;margin-bottom:6px;cursor:pointer}.acard:hover{border-color:var(--gold)}
+.aname{font-size:13px;font-weight:600;color:var(--text)}.adist{font-size:11px;color:var(--text2)}
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sec-title{font-family:Playfair Display,serif;font-size:18px;color:var(--goldb)}
+.sec-title{font-family:"Playfair Display",serif;font-size:18px;color:var(--goldb)}
 .sec-count{font-size:11px;color:var(--text3);background:var(--bg3);border:1px solid var(--gold3);border-radius:20px;padding:2px 10px}
-.empty{text-align:center;padding:40px 16px;color:var(--text3)}
-.empty .ei{font-size:40px;margin-bottom:10px}
+.empty{text-align:center;padding:40px 16px;color:var(--text3)}.empty .ei{font-size:40px;margin-bottom:10px}
 .apanel{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);padding:18px;margin-bottom:16px}
-.apanel h3{color:var(--goldb);margin-bottom:12px;font-family:Playfair Display,serif}
+.apanel h3{color:var(--goldb);margin-bottom:12px;font-family:"Playfair Display",serif}
 .apanel input,.apanel select{width:100%;padding:9px 12px;margin-bottom:9px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:13px;outline:none}
-.apanel input:focus,.apanel select:focus{border-color:var(--gold)}
-.apanel input::placeholder{color:var(--text3)}
+.apanel input:focus,.apanel select:focus{border-color:var(--gold)}.apanel input::placeholder{color:var(--text3)}
 .savebtn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;padding:12px;border:none;border-radius:30px;font-weight:700;font-size:13px;width:100%;cursor:pointer}
 .elist-item{background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:9px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
 .edel{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:13px}
@@ -98,11 +79,11 @@ body{background:var(--bg);color:var(--text);font-family:DM Sans,sans-serif;min-h
 <div id="hdr"><div class="htitle">BOURBON TRUTH</div><div class="hsub">Distillery Transparency Database</div></div>
 <div id="main"></div>
 <div id="tabs">
-<div class="tab active" id="t0" onclick="go(0)"><div class="ticon">📋</div><div>DATABASE</div></div>
-<div class="tab" id="t1" onclick="go(1)"><div class="ticon">📷</div><div>SCAN</div></div>
-<div class="tab" id="t2" onclick="go(2)"><div class="ticon">🥃</div><div>COLLECTION</div></div>
-<div class="tab" id="t3" onclick="go(3)"><div class="ticon">⭐</div><div>WANT LIST</div></div>
-<div class="tab" id="t4" onclick="go(4)"><div class="ticon">➕</div><div>ADMIN</div></div>
+  <div class="tab active" id="t0" onclick="go(0)"><div class="ticon">📋</div><div>DATABASE</div></div>
+  <div class="tab" id="t1" onclick="go(1)"><div class="ticon">📷</div><div>SCAN</div></div>
+  <div class="tab" id="t2" onclick="go(2)"><div class="ticon">🥃</div><div>COLLECTION</div></div>
+  <div class="tab" id="t3" onclick="go(3)"><div class="ticon">⭐</div><div>WANT LIST</div></div>
+  <div class="tab" id="t4" onclick="go(4)"><div class="ticon">+</div><div>ADMIN</div></div>
 </div>
 <script>
 var FB_CFG={apiKey:"AIzaSyAVvQOA2f0EExyhsQcSboT4TBovEzAqVYc",authDomain:"bourbon-scanner.firebaseapp.com",databaseURL:"https://bourbon-scanner-default-rtdb.firebaseio.com",projectId:"bourbon-scanner",storageBucket:"bourbon-scanner.firebasestorage.app",messagingSenderId:"162552372589",appId:"1:162552372589:web:ddacaff140a6359ceb4e64"};
@@ -122,27 +103,29 @@ function go(i){
 function updateBadges(){
   var c2=document.getElementById("t2"),c3=document.getElementById("t3");
   var cn=Object.keys(COL).length,wn=Object.keys(WANT).length;
-  if(c2)c2.querySelector(".ticon").textContent=cn>0?"🥃 "+cn:"🥃";
-  if(c3)c3.querySelector(".ticon").textContent=wn>0?"⭐ "+wn:"⭐";
+  if(c2)c2.querySelector(".ticon").textContent=cn>0?"Collection ("+cn+")":"Collection";
+  if(c3)c3.querySelector(".ticon").textContent=wn>0?"Want ("+wn+")":"Want";
 }
 function rDB(){
   var m=document.getElementById("main");if(!m)return;
+  var q="";var si=document.getElementById("si");if(si)q=si.value;
   m.innerHTML="";
   var sr=document.createElement("div");sr.className="srow";
   var inp=document.createElement("input");
-  inp.className="sinput";inp.id="si";inp.type="text";inp.autocomplete="off";
-  inp.autocorrect="off";inp.autocapitalize="off";inp.spellcheck=false;
+  inp.className="sinput";inp.id="si";inp.type="text";
+  inp.autocomplete="off";inp.autocorrect="off";inp.autocapitalize="off";inp.spellcheck=false;
   inp.placeholder="Search bourbons...";
+  inp.value=q;
   var scanBtn=document.createElement("button");
-  scanBtn.className="scanbtn-sm";scanBtn.title="Scan barcode";
-  scanBtn.textContent="Scan";
+  scanBtn.className="scanbtn-sm";scanBtn.textContent="Scan";
   scanBtn.onclick=function(){go(1);};
   sr.appendChild(inp);sr.appendChild(scanBtn);
   var fr=document.createElement("div");fr.className="frow";fr.id="fr";
   var cl=document.createElement("div");cl.id="cl";
   m.appendChild(sr);m.appendChild(fr);m.appendChild(cl);
-  rFR();rCL("");
+  rFR();rCL(q);
   inp.addEventListener("input",function(){rCL(this.value);});
+  if(q)inp.focus();
 }
 function rFR(){
   var fr=document.getElementById("fr");if(!fr)return;fr.innerHTML="";
@@ -163,23 +146,29 @@ function rCL(q){
   });
   if(items.length===0){
     var es=document.createElement("div");es.className="empty";
-    es.innerHTML="<div class=\"ei\">🥃</div><div>No bourbons found</div>";
+    es.innerHTML="<div class=\"ei\">"+String.fromCharCode(127862)+"</div><div>No bourbons found</div>";
     cl.appendChild(es);return;
   }
   items.forEach(function(e){cl.appendChild(mkCard(e[0],e[1],"db"));});
 }
 function mkCard(upc,b,ctx){
   var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
-  var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
-  var pcls=sc==="l"?"pl":sc==="s"?"ps":"pm";
-  var bcls=sc==="l"?"bl":sc==="s"?"bs":"bm";
+  var ic=b.status==="Legit"?"OK":"NO";
+  ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
   var inCol=COL.hasOwnProperty(upc),inWant=WANT.hasOwnProperty(upc);
   var card=document.createElement("div");card.className="card";
   var ch=document.createElement("div");ch.className="ch";
-  ch.innerHTML='<div class="cbadge '+bcls+'">'+ic+'</div><div class="ci"><div class="cname">'+b.name+'</div><div class="cdist">'+(b.distiller||"Unknown")+'</div></div><span class="pill '+pcls+'">'+b.status.toUpperCase()+'</span>';
+  var badge=document.createElement("div");badge.className="cbadge b"+sc;
+  badge.textContent=ic;
+  var ci=document.createElement("div");ci.className="ci";
+  var cn=document.createElement("div");cn.className="cname";cn.textContent=b.name||"Unknown";
+  var cd=document.createElement("div");cd.className="cdist";cd.textContent=b.distiller||"Unknown";
+  ci.appendChild(cn);ci.appendChild(cd);
+  var pill=document.createElement("span");pill.className="pill p"+sc;pill.textContent=b.status.toUpperCase();
+  ch.appendChild(badge);ch.appendChild(ci);ch.appendChild(pill);
   var cb=document.createElement("div");cb.className="cb"+(OC===upc?" open":"");
-  var notes=document.createElement("div");notes.className="cnotes";notes.textContent=b.notes||"No additional notes.";
-  var upcDiv=document.createElement("div");upcDiv.style="margin-top:6px;font-size:11px;color:var(--text3)";upcDiv.textContent="UPC: "+upc;
+  var notesEl=document.createElement("div");notesEl.className="cnotes";notesEl.textContent=b.notes||"No additional notes.";
+  var upcEl=document.createElement("div");upcEl.style.cssText="margin-top:6px;font-size:11px;color:var(--text3)";upcEl.textContent="UPC: "+upc;
   var acts=document.createElement("div");acts.className="cactions";
   if(ctx!=="col"){
     var ab=document.createElement("button");
@@ -195,21 +184,30 @@ function mkCard(upc,b,ctx){
     wb.onclick=function(e){e.stopPropagation();toggleWant(upc,b);};
     acts.appendChild(wb);
   }
-  cb.appendChild(notes);cb.appendChild(upcDiv);cb.appendChild(acts);
+  cb.appendChild(notesEl);cb.appendChild(upcEl);cb.appendChild(acts);
   card.appendChild(ch);card.appendChild(cb);
-  card.onclick=function(){OC=OC===upc?null:upc;var si=document.getElementById("si");rCL(si?si.value:"");if(CT===2)rCOL();if(CT===3)rWANT();};
+  card.onclick=function(){
+    OC=OC===upc?null:upc;
+    if(CT===0){var si=document.getElementById("si");rCL(si?si.value:"");}
+    if(CT===2)rCOL();
+    if(CT===3)rWANT();
+  };
   return card;
 }
 function rCOL(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
-  var hdr=document.createElement("div");hdr.className="sec-hdr";
   var cnt=Object.keys(COL).length;
-  hdr.innerHTML='<div class="sec-title">My Collection</div><span class="sec-count">'+ cnt +' bottles</span>';
-  m.appendChild(hdr);
-  if(cnt===0){var e=document.createElement("div");e.className="empty";e.innerHTML="<div class=\"ei\">🥃</div><div>No bottles in your collection yet.<br>Scan or browse the Database<br>and tap <em>+ My Collection</em>.</div>";m.appendChild(e);return;}
-  Object.entries(COL).forEach(function(e){
-    var upc=e[0];
-    var b=BD[upc]||e[1];
+  var hdr=document.createElement("div");hdr.className="sec-hdr";
+  var ht=document.createElement("div");ht.className="sec-title";ht.textContent="My Collection";
+  var hc=document.createElement("span");hc.className="sec-count";hc.textContent=cnt+" bottles";
+  hdr.appendChild(ht);hdr.appendChild(hc);m.appendChild(hdr);
+  if(cnt===0){
+    var e=document.createElement("div");e.className="empty";
+    e.innerHTML="<div class=\"ei\">🥃</div><div>No bottles in your collection yet.<br>Browse the Database<br>and tap <em>+ My Collection</em>.</div>";
+    m.appendChild(e);return;
+  }
+  Object.entries(COL).forEach(function(entry){
+    var upc=entry[0],b=BD[upc]||entry[1];
     if(b)m.appendChild(mkCard(upc,b,"col"));
   });
 }
@@ -219,14 +217,18 @@ function toggleCol(upc,b){
 }
 function rWANT(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
-  var hdr=document.createElement("div");hdr.className="sec-hdr";
   var cnt=Object.keys(WANT).length;
-  hdr.innerHTML='<div class="sec-title">Want List</div><span class="sec-count">'+ cnt +' bottles</span>';
-  m.appendChild(hdr);
-  if(cnt===0){var e=document.createElement("div");e.className="empty";e.innerHTML="<div class=\"ei\">⭐</div><div>No bottles on your want list yet.<br>Browse the Database and<br>tap <em>Star Want List</em>.</div>";m.appendChild(e);return;}
-  Object.entries(WANT).forEach(function(e){
-    var upc=e[0];
-    var b=BD[upc]||e[1];
+  var hdr=document.createElement("div");hdr.className="sec-hdr";
+  var ht=document.createElement("div");ht.className="sec-title";ht.textContent="Potential Buys";
+  var hc=document.createElement("span");hc.className="sec-count";hc.textContent=cnt+" bottles";
+  hdr.appendChild(ht);hdr.appendChild(hc);m.appendChild(hdr);
+  if(cnt===0){
+    var e=document.createElement("div");e.className="empty";
+    e.innerHTML="<div class=\"ei\">⭐</div><div>No bottles on your list yet.<br>Browse the Database and<br>tap <em>⭐ Want List</em>.</div>";
+    m.appendChild(e);return;
+  }
+  Object.entries(WANT).forEach(function(entry){
+    var upc=entry[0],b=BD[upc]||entry[1];
     if(b)m.appendChild(mkCard(upc,b,"want"));
   });
 }
@@ -238,12 +240,23 @@ function rSCAN(){
   var m=document.getElementById("main");if(!m)return;
   m.innerHTML="";
   var w=document.createElement("div");w.className="scanwrap";
-  w.innerHTML='<h2 style="color:var(--goldb);font-family:Playfair Display,serif;margin-bottom:5px;">Scan a Barcode</h2><p style="color:var(--text2);font-size:12px;margin-bottom:14px;">Point your camera at the UPC barcode</p><div id="scon"><div class="sovl"><div class="scross"></div></div></div><div style="margin-top:10px"><button class="sbtn" onclick="toggleScan()" id="stb">Start Scanner</button></div><div id="sres"></div>';
+  var h=document.createElement("h2");h.style.cssText="color:var(--goldb);font-family:Playfair Display,serif;margin-bottom:5px;";h.textContent="Scan a Barcode";
+  var p=document.createElement("p");p.style.cssText="color:var(--text2);font-size:12px;margin-bottom:14px;";p.textContent="Point your camera at the UPC barcode";
+  var scon=document.createElement("div");scon.id="scon";
+  var sovl=document.createElement("div");sovl.className="sovl";
+  var scross=document.createElement("div");scross.className="scross";
+  sovl.appendChild(scross);scon.appendChild(sovl);
+  var btnWrap=document.createElement("div");btnWrap.style.marginTop="10px";
+  var sbtn=document.createElement("button");sbtn.className="sbtn";sbtn.id="stb";sbtn.textContent="Start Scanner";
+  sbtn.onclick=function(){toggleScan();};
+  btnWrap.appendChild(sbtn);
+  var sres=document.createElement("div");sres.id="sres";
+  w.appendChild(h);w.appendChild(p);w.appendChild(scon);w.appendChild(btnWrap);w.appendChild(sres);
   m.appendChild(w);
 }
 function toggleScan(){if(SR)stopScan();else startScan();}
 function startScan(){
-  if(typeof Quagga==="undefined"){alert("Scanner not loaded.");return;}
+  if(typeof Quagga==="undefined"){alert("Scanner not available.");return;}
   var btn=document.getElementById("stb");if(btn)btn.textContent="Stop Scanner";
   Quagga.init({
     inputStream:{name:"Live",type:"LiveStream",target:document.getElementById("scon"),constraints:{facingMode:{ideal:"environment"},width:{ideal:1280},height:{ideal:720}}},
@@ -260,82 +273,102 @@ function stopScan(){
 function buildVerdict(upc,b){
   var st=b.status,all=Object.entries(BD);
   var vi,vc,vl,vm;
-  if(st==="Legit"){vi="trophy";vc="buy";vl="BUY THIS";vm="Distilled on-site by a transparent operation. The real deal.";}
-  else if(st==="Sourced"){vi="stop";vc="skip";vl="SKIP THIS";vm="Another distillery made this. You are paying a premium for a label.";}
-  else{vi="warn";vc="caution";vl="USE CAUTION";vm="Mixed or unclear sourcing. Transparency is limited.";}
-  var icons={trophy:"🏆",stop:"⛔",warn:"⚠️"};
-  var h='<div class="vbar '+vc+'"><div class="vicon">'+icons[vi]+'</div><div><div class="vlbl '+vc+'">'+vl+'</div><div class="vmsg">'+vm+'</div></div></div>';
+  if(st==="Legit"){vi="🏆";vc="buy";vl="BUY THIS";vm="Distilled on-site by a transparent operation. The real deal.";}
+  else if(st==="Sourced"){vi="⛔";vc="skip";vl="SKIP THIS";vm="Another distillery made this. You are paying a premium for a label.";}
+  else{vi="⚠️";vc="caution";vl="USE CAUTION";vm="Mixed or unclear sourcing. Transparency is limited.";}
+  var html="<div class=\"vbar "+vc+"\"><div class=\"vicon\">"+vi+"</div><div><div class=\"vlbl "+vc+"\">"+vl+"</div><div class=\"vmsg\">"+vm+"</div></div></div>";
   var legits=all.filter(function(e){return e[0]!==upc&&e[1].status==="Legit";});
   if((st==="Sourced"||st==="Mixed")&&legits.length>0){
-    h+='<div class="alts"><div class="atitle">Buy These Instead</div>';
+    html+="<div class=\"alts\"><div class=\"atitle\">Buy These Instead</div>";
     legits.slice(0,4).forEach(function(e){
       var u=e[0],bb=e[1];
-      h+='<div class="acard" onclick="showAlt(\''+ u +'\')">'+
-         '<div><div class="aname">'+bb.name+'</div><div class="adist">'+(bb.distiller||"")+'</div></div>'+
-         '<span class="pill pl">LEGIT</span></div>';
+      html+="<div class=\"acard\" onclick=\"showAlt('"+u+"')\">"+"<div><div class=\"aname\">"+bb.name+"</div><div class=\"adist\">"+(bb.distiller||"")+"</div></div>"+"<span class=\"pill pl\">LEGIT</span></div>";
     });
-    h+='</div>';
+    html+="</div>";
   }
   if(st==="Legit"&&legits.length>0){
-    h+='<div class="alts"><div class="atitle">Also Consider</div>';
+    html+="<div class=\"alts\"><div class=\"atitle\">Also Consider</div>";
     legits.slice(0,4).forEach(function(e){
       var u=e[0],bb=e[1];
-      h+='<div class="acard" onclick="showAlt(\''+ u +'\')">'+
-         '<div><div class="aname">'+bb.name+'</div><div class="adist">'+(bb.distiller||"")+'</div></div>'+
-         '<span class="pill pl">LEGIT</span></div>';
+      html+="<div class=\"acard\" onclick=\"showAlt('"+u+"')\">"+"<div><div class=\"aname\">"+bb.name+"</div><div class=\"adist\">"+(bb.distiller||"")+"</div></div>"+"<span class=\"pill pl\">LEGIT</span></div>";
     });
-    h+='</div>';
+    html+="</div>";
   }
-  return h;
+  return html;
 }
 function showAlt(upc){
   var b=BD[upc];if(!b)return;
   var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
   var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
   var rd=document.getElementById("sres");if(!rd)return;
-  rd.innerHTML='<div class="rbox"><div style="font-size:11px;color:var(--text3);margin-bottom:8px;cursor:pointer;" onclick="doLookup(window._lsc)">Back to result</div><h3>'+ic+" "+b.name+'</h3><p style="color:var(--text2);font-size:12px;margin-bottom:6px;">Distiller: '+(b.distiller||"?")+'</p><span class="pill p'+(sc==='l'?'l':sc==='s'?'s':'m')+'">'+b.status.toUpperCase()+'</span><p style="margin-top:10px;font-size:12px;color:var(--text2);">'+(b.notes||"")+'</p></div>';
+  var rbox=document.createElement("div");rbox.className="rbox";
+  var back=document.createElement("div");back.style.cssText="font-size:11px;color:var(--text3);margin-bottom:8px;cursor:pointer;";back.textContent="Back to result";
+  back.onclick=function(){doLookup(window._lsc);};
+  var h3=document.createElement("h3");h3.textContent=ic+" "+b.name;
+  var dist=document.createElement("p");dist.style.cssText="color:var(--text2);font-size:12px;margin-bottom:6px;";dist.textContent="Distiller: "+(b.distiller||"Unknown");
+  var sp=document.createElement("span");sp.className="pill p"+sc;sp.textContent=b.status.toUpperCase();
+  var notes=document.createElement("p");notes.style.cssText="margin-top:10px;font-size:12px;color:var(--text2);";notes.textContent=b.notes||"";
+  rbox.appendChild(back);rbox.appendChild(h3);rbox.appendChild(dist);rbox.appendChild(sp);rbox.appendChild(notes);
+  rd.innerHTML="";rd.appendChild(rbox);
 }
 function doLookup(code){
   window._lsc=code;
   var rd=document.getElementById("sres");
-  if(rd)rd.innerHTML='<div class="rbox"><p style="color:var(--text2)">Looking up '+code+'...</p></div>';
+  if(rd){rd.innerHTML="";var rb=document.createElement("div");rb.className="rbox";rb.innerHTML="<p style=\"color:var(--text2)\">Looking up "+code+"...</p>";rd.appendChild(rb);}
   db.ref("bourbons/"+code).once("value").then(function(snap){
     rd=document.getElementById("sres");if(!rd)return;
+    rd.innerHTML="";
     if(snap.exists()){
       var b=snap.val();
       var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
       var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
-      var pcls="p"+(sc==="l"?"l":sc==="s"?"s":"m");
-      var h='<div class="rbox"><h3>'+ic+" "+b.name+'</h3>'+
-            '<p style="color:var(--text2);font-size:12px;margin-bottom:6px;">Distiller: '+(b.distiller||"?")+'</p>'+
-            '<span class="pill '+pcls+'">'+b.status.toUpperCase()+'</span>';
-      if(b.notes)h+='<p style="margin-top:8px;font-size:12px;color:var(--text2);">'+b.notes+'</p>';
-      h+='<p style="margin-top:5px;font-size:10px;color:var(--text3)">UPC: '+code+'</p>';
-      h+='<hr style="border:none;border-top:1px solid var(--gold3);margin:12px 0">';
-      h+=buildVerdict(code,b);
+      var rbox=document.createElement("div");rbox.className="rbox";
+      var h3=document.createElement("h3");h3.textContent=ic+" "+b.name;
+      var dist=document.createElement("p");dist.style.cssText="color:var(--text2);font-size:12px;margin-bottom:6px;";dist.textContent="Distiller: "+(b.distiller||"Unknown");
+      var pill=document.createElement("span");pill.className="pill p"+sc;pill.textContent=b.status.toUpperCase();
+      var hr=document.createElement("hr");hr.style.cssText="border:none;border-top:1px solid var(--gold3);margin:12px 0;";
+      rbox.appendChild(h3);rbox.appendChild(dist);rbox.appendChild(pill);
+      if(b.notes){var np=document.createElement("p");np.style.cssText="margin-top:8px;font-size:12px;color:var(--text2);";np.textContent=b.notes;rbox.appendChild(np);}
+      var upcP=document.createElement("p");upcP.style.cssText="margin-top:5px;font-size:10px;color:var(--text3);";upcP.textContent="UPC: "+code;rbox.appendChild(upcP);
+      rbox.appendChild(hr);
+      var vDiv=document.createElement("div");vDiv.innerHTML=buildVerdict(code,b);rbox.appendChild(vDiv);
+      var actDiv=document.createElement("div");actDiv.style.cssText="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;";
       var inC=COL.hasOwnProperty(code),inW=WANT.hasOwnProperty(code);
-      h+='<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">';
-      h+='<button class="abtn '+(inC?"abtn-del":"abtn-add")+'" onclick="toggleCol(\''+ code +'\','+ JSON.stringify(b) +')">'+(inC?"Remove from Collection":"+ My Collection")+'</button>';
-      h+='<button class="abtn '+(inW?"abtn-del":"abtn-want")+'" onclick="toggleWant(\''+ code +'\','+ JSON.stringify(b) +')">'+(inW?"Remove from Want List":"Star Want List")+'</button>';
-      h+='</div>';
-      h+='<div style="text-align:center;margin-top:14px"><button class="sbtn" style="padding:9px 24px;" onclick="toggleScan()">Scan Another</button></div></div>';
-      rd.innerHTML=h;
-    }else{
-      rd.innerHTML='<div class="rbox"><h3>Not in Database</h3><p style="color:var(--text2);font-size:12px;margin-bottom:10px;">UPC '+code+' not found.</p><button class="sbtn" style="padding:9px 22px;margin-bottom:6px;" onclick="openAdmin(\''+ code +'\')" >Add This Bourbon</button><br><button class="sbtn" style="padding:9px 22px;background:transparent;color:var(--text2);border:1px solid var(--gold3);margin-top:6px;" onclick="toggleScan()">Scan Again</button></div>';
+      var colBtn=document.createElement("button");colBtn.className="abtn "+(inC?"abtn-del":"abtn-add");colBtn.textContent=inC?"Remove from Collection":"+ My Collection";
+      colBtn.onclick=function(){toggleCol(code,b);};
+      var wantBtn=document.createElement("button");wantBtn.className="abtn "+(inW?"abtn-del":"abtn-want");wantBtn.textContent=inW?"Remove from Want List":"⭐ Want List";
+      wantBtn.onclick=function(){toggleWant(code,b);};
+      actDiv.appendChild(colBtn);actDiv.appendChild(wantBtn);rbox.appendChild(actDiv);
+      var scanAgain=document.createElement("div");scanAgain.style.cssText="text-align:center;margin-top:14px;";
+      var sa=document.createElement("button");sa.className="sbtn";sa.style.cssText="padding:9px 24px;";sa.textContent="Scan Another";sa.onclick=function(){toggleScan();};
+      scanAgain.appendChild(sa);rbox.appendChild(scanAgain);
+      rd.appendChild(rbox);
+    } else {
+      var rbox2=document.createElement("div");rbox2.className="rbox";
+      var h3b=document.createElement("h3");h3b.textContent="Not in Database";rbox2.appendChild(h3b);
+      var p2=document.createElement("p");p2.style.cssText="color:var(--text2);font-size:12px;margin-bottom:10px;";p2.textContent="UPC "+code+" not found. Want to add it?";rbox2.appendChild(p2);
+      var addBtn=document.createElement("button");addBtn.className="sbtn";addBtn.style.cssText="padding:9px 22px;display:block;margin:0 auto 8px;";addBtn.textContent="Add This Bourbon";
+      addBtn.onclick=function(){openAdmin(code);};rbox2.appendChild(addBtn);
+      var againBtn=document.createElement("button");againBtn.className="sbtn";againBtn.style.cssText="padding:9px 22px;background:transparent;color:var(--text2);border:1px solid var(--gold3);display:block;margin:0 auto;";againBtn.textContent="Scan Again";
+      againBtn.onclick=function(){toggleScan();};rbox2.appendChild(againBtn);
+      rd.appendChild(rbox2);
     }
-  }).catch(function(e){var rd2=document.getElementById("sres");if(rd2)rd2.innerHTML='<div class="rbox"><p style="color:var(--sourced)">Error: '+e.message+'</p></div>';});
+  }).catch(function(err){
+    var rd2=document.getElementById("sres");
+    if(rd2){rd2.innerHTML="";var eb=document.createElement("div");eb.className="rbox";eb.innerHTML="<p style=\"color:var(--sourced)\">Error: "+err.message+"</p>";rd2.appendChild(eb);}
+  });
 }
-function openAdmin(code){go(4);setTimeout(function(){var f=document.getElementById("nU");if(f){f.value=code;f.focus();}},120);}
+function openAdmin(code){go(4);setTimeout(function(){var f=document.getElementById("nU");if(f){f.value=code||"";f.focus();}},150);}
 function rADMIN(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
   var p=document.createElement("div");p.className="apanel";
-  p.innerHTML='<h3>Add New Bourbon</h3>'+
-    '<input type="text" id="nU" placeholder="Barcode / UPC" autocomplete="off">'+
-    '<input type="text" id="nN" placeholder="Bourbon Name" autocomplete="off">'+
-    '<select id="nST"><option value="Legit">Legit (Distilled on-site)</option><option value="Sourced">Sourced (MGP / Other)</option><option value="Mixed">Mixed / Unknown</option></select>'+
-    '<input type="text" id="nD" placeholder="Actual Distiller" autocomplete="off">'+
-    '<input type="text" id="nNotes" placeholder="Notes (optional)" autocomplete="off">'+
-    '<button class="savebtn" onclick="saveToDB()">SAVE TO CLOUD</button>';
+  p.innerHTML="<h3>Add New Bourbon</h3>"
+    +"<input type=\"text\" id=\"nU\" placeholder=\"Barcode / UPC\" autocomplete=\"off\">"
+    +"<input type=\"text\" id=\"nN\" placeholder=\"Bourbon Name\" autocomplete=\"off\">"
+    +"<select id=\"nST\"><option value=\"Legit\">Legit (Distilled on-site)</option><option value=\"Sourced\">Sourced (MGP / Other)</option><option value=\"Mixed\">Mixed / Unknown</option></select>"
+    +"<input type=\"text\" id=\"nD\" placeholder=\"Actual Distiller\" autocomplete=\"off\">"
+    +"<input type=\"text\" id=\"nNotes\" placeholder=\"Notes (optional)\" autocomplete=\"off\">"
+    +"<button class=\"savebtn\" onclick=\"saveToDB()\">SAVE TO CLOUD</button>";
   var al=document.createElement("div");al.id="al";
   m.appendChild(p);m.appendChild(al);
   rAL();
@@ -343,13 +376,21 @@ function rADMIN(){
 function rAL(){
   var al=document.getElementById("al");if(!al)return;al.innerHTML="";
   var es=Object.entries(BD);if(es.length===0)return;
-  var h2=document.createElement("div");h2.style="color:var(--text2);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;";h2.textContent="Existing Entries ("+es.length+")";al.appendChild(h2);
+  var h2=document.createElement("div");h2.style.cssText="color:var(--text2);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;";
+  h2.textContent="Existing Entries ("+es.length+")";al.appendChild(h2);
   es.forEach(function(e){
     var upc=e[0],b=e[1];
     var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
     var row=document.createElement("div");row.className="elist-item";
-    row.innerHTML='<div><div style="font-size:13px;font-weight:600;color:var(--text);">'+b.name+'</div><div style="font-size:10px;color:var(--text3);margin-top:2px;">'+ upc +' <span class="pill p'+(sc==="l"?"l":sc==="s"?"s":"m")+'" style="font-size:8px;padding:1px 6px;">'+b.status+'</span></div></div>'+
-                  '<button class="edel" onclick="delEntry(\''+ upc +'\')" >Del</button>';
+    var info=document.createElement("div");
+    var nm=document.createElement("div");nm.style.cssText="font-size:13px;font-weight:600;color:var(--text);";nm.textContent=b.name;
+    var upci=document.createElement("div");upci.style.cssText="font-size:10px;color:var(--text3);margin-top:2px;";
+    var sp=document.createElement("span");sp.className="pill p"+sc;sp.style.cssText="font-size:8px;padding:1px 6px;";sp.textContent=b.status;
+    upci.textContent=upc+" ";upci.appendChild(sp);
+    info.appendChild(nm);info.appendChild(upci);
+    var del=document.createElement("button");del.className="edel";del.textContent="Del";
+    del.onclick=function(){delEntry(upc);};
+    row.appendChild(info);row.appendChild(del);
     al.appendChild(row);
   });
 }
@@ -359,16 +400,17 @@ function saveToDB(){
   var status=document.getElementById("nST").value;
   var dist=document.getElementById("nD").value.trim();
   var notes=document.getElementById("nNotes").value.trim();
-  if(!upc||!name){alert("UPC and Name required.");return;}
+  if(!upc||!name){alert("UPC and Name are required.");return;}
   db.ref("bourbons/"+upc).set({name:name,status:status,distiller:dist,notes:notes,timestamp:Date.now()})
     .then(function(){alert("Saved!");["nU","nN","nD","nNotes"].forEach(function(id){var f=document.getElementById(id);if(f)f.value="";});rAL();})
     .catch(function(e){alert("Error: "+e.message);});
 }
 function delEntry(upc){
-  if(!confirm("Delete "+(BD[upc]&&BD[upc].name?BD[upc].name:upc)+"?"))return;
+  var nm=BD[upc]&&BD[upc].name?BD[upc].name:upc;
+  if(!confirm("Delete "+nm+"?"))return;
   db.ref("bourbons/"+upc).remove().then(function(){rAL();});
 }
-window.onload=function(){rDB();};
+window.onload=function(){go(0);};
 </script>
 </body>
 </html>
