@@ -7,436 +7,236 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Bourbon Truth">
   <link rel="manifest" href="manifest.json">
-  <title>🥃 Bourbon Truth Scanner</title>
+  <title>Bourbon Truth Scanner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
   <style>
-    :root{--bg:#080502;--bg2:#0f0904;--bg3:#160d05;--bg4:#1e1208;--gold:#c9943a;--gold2:#7a501a;--gold3:#3d2508;--goldb:#f0c060;--text:#e8d4a8;--text2:#9e7c40;--text3:#4e3515;--legit:#1fc55a;--sourced:#e84444;--mixed:#e8960a;--radius:12px;--tab-h:64px;--safe-b:env(safe-area-inset-bottom,0px)}
+    :root{--bg:#080502;--bg3:#160d05;--gold:#c9943a;--gold2:#7a501a;--gold3:#3d2508;--goldb:#f0c060;--text:#e8d4a8;--text2:#9e7c40;--text3:#4e3515;--legit:#1fc55a;--sourced:#e84444;--mixed:#e8960a;--radius:12px;--tab-h:64px;--safe-b:env(safe-area-inset-bottom,0px)}
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     html,body{height:100%;overflow-x:hidden}
-    body{background:var(--bg);color:var(--text);font-family:"DM Sans",Georgia,sans-serif;min-height:100vh;padding-bottom:calc(var(--tab-h) + var(--safe-b) + 8px)}
+    body{background:var(--bg);color:var(--text);font-family:DM Sans,Georgia,sans-serif;min-height:100vh;padding-bottom:calc(var(--tab-h) + var(--safe-b) + 8px)}
     body::before{content:"";position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;opacity:0.6}
-    #header{position:relative;overflow:hidden;background:linear-gradient(170deg,#1e0e02 0%,var(--bg) 100%);border-bottom:1px solid rgba(201,148,58,0.25);padding:calc(env(safe-area-inset-top,10px) + 14px) 16px 14px;text-align:center;z-index:10}
+    #header{background:linear-gradient(170deg,#1e0e02 0%,var(--bg) 100%);border-bottom:1px solid rgba(201,148,58,.25);padding:calc(env(safe-area-inset-top,10px) + 14px) 16px 14px;text-align:center;position:relative;z-index:10}
     .h-icon{font-size:32px;margin-bottom:4px}
-    .h-title{font-family:"Playfair Display",Georgia,serif;font-size:clamp(17px,5vw,26px);font-weight:900;color:var(--goldb);letter-spacing:0.12em;text-shadow:0 0 40px rgba(240,192,96,0.35)}
-    .h-sub{font-size:11px;color:var(--text2);letter-spacing:0.08em;margin-top:2px}
-    #tabs{position:fixed;bottom:0;left:0;right:0;height:calc(var(--tab-h) + var(--safe-b));background:rgba(8,5,2,0.97);border-top:1px solid rgba(201,148,58,0.2);display:flex;z-index:100;padding-bottom:var(--safe-b)}
-    .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--text3);font-size:10px;letter-spacing:0.05em;transition:color 0.2s}
-    .tab.active{color:var(--gold)}
-    .tab-icon{font-size:22px}
+    .h-title{font-family:Playfair Display,serif;font-size:clamp(17px,5vw,26px);font-weight:900;color:var(--goldb);letter-spacing:.12em;text-shadow:0 0 40px rgba(240,192,96,.35)}
+    .h-sub{font-size:11px;color:var(--text2);letter-spacing:.08em;margin-top:2px}
+    #tabs{position:fixed;bottom:0;left:0;right:0;height:calc(var(--tab-h) + var(--safe-b));background:rgba(8,5,2,.97);border-top:1px solid rgba(201,148,58,.2);display:flex;z-index:100;padding-bottom:var(--safe-b)}
+    .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--text3);font-size:10px;letter-spacing:.05em;transition:color .2s}
+    .tab.active{color:var(--gold)} .tab-icon{font-size:22px}
     #main{position:relative;z-index:1;padding:16px}
-    .card{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;cursor:pointer;transition:border-color 0.2s}
-    .card:hover{border-color:var(--gold2)}
+    .card{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;cursor:pointer}
     .card-head{display:flex;align-items:center;padding:14px;gap:12px}
     .card-badge{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-    .badge-legit{background:rgba(31,197,90,0.15);border:1px solid var(--legit)}
-    .badge-sourced{background:rgba(232,68,68,0.15);border:1px solid var(--sourced)}
-    .badge-mixed{background:rgba(232,150,10,0.15);border:1px solid var(--mixed)}
-    .card-info{flex:1;min-width:0}
-    .card-name{font-weight:600;font-size:15px;color:var(--text)}
-    .card-dist{font-size:12px;color:var(--text2);margin-top:2px}
-    .status-pill{font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 10px;border-radius:20px;white-space:nowrap}
-    .pill-legit{background:rgba(31,197,90,0.15);color:var(--legit);border:1px solid var(--legit)}
-    .pill-sourced{background:rgba(232,68,68,0.15);color:var(--sourced);border:1px solid var(--sourced)}
-    .pill-mixed{background:rgba(232,150,10,0.15);color:var(--mixed);border:1px solid var(--mixed)}
-    .card-body{padding:0 14px 14px;display:none}
-    .card-body.open{display:block}
-    .card-notes{font-size:13px;color:var(--text2);line-height:1.5}
+    .badge-legit{background:rgba(31,197,90,.15);border:1px solid var(--legit)} .badge-sourced{background:rgba(232,68,68,.15);border:1px solid var(--sourced)} .badge-mixed{background:rgba(232,150,10,.15);border:1px solid var(--mixed)}
+    .card-info{flex:1;min-width:0} .card-name{font-weight:600;font-size:15px;color:var(--text)} .card-dist{font-size:12px;color:var(--text2);margin-top:2px}
+    .status-pill{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;white-space:nowrap}
+    .pill-legit{background:rgba(31,197,90,.15);color:var(--legit);border:1px solid var(--legit)} .pill-sourced{background:rgba(232,68,68,.15);color:var(--sourced);border:1px solid var(--sourced)} .pill-mixed{background:rgba(232,150,10,.15);color:var(--mixed);border:1px solid var(--mixed)}
+    .card-body{padding:0 14px 14px;display:none} .card-body.open{display:block} .card-notes{font-size:13px;color:var(--text2);line-height:1.5}
     .search-wrap{position:relative;margin-bottom:12px}
-    .search-wrap input{width:100%;padding:12px 16px 12px 40px;background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);color:var(--text);font-size:15px;outline:none;-webkit-appearance:none}
-    .search-wrap input:focus{border-color:var(--gold)}
-    .search-wrap input::placeholder{color:var(--text3)}
+    .search-wrap input{width:100%;padding:12px 16px 12px 40px;background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);color:var(--text);font-size:15px;outline:none}
+    .search-wrap input:focus{border-color:var(--gold)} .search-wrap input::placeholder{color:var(--text3)}
     .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
     .filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-    .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--gold3);background:transparent;color:var(--text2);font-size:12px;cursor:pointer;transition:all 0.2s}
+    .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--gold3);background:transparent;color:var(--text2);font-size:12px;cursor:pointer}
     .filter-btn.active{background:var(--gold3);color:var(--goldb);border-color:var(--gold)}
     .scan-area{text-align:center;padding:20px 16px}
     #scanner-container{position:relative;width:100%;max-width:480px;margin:0 auto;border-radius:var(--radius);overflow:hidden;background:#000;border:2px solid var(--gold3)}
     #scanner-container video{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
     #scanner-container canvas.drawingBuffer{position:absolute;top:0;left:0;width:100%;height:100%}
     .scan-overlay{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-    .scan-crosshair{width:60%;max-width:200px;aspect-ratio:1;border:2px solid rgba(201,148,58,0.7);border-radius:8px;box-shadow:0 0 0 9999px rgba(0,0,0,0.35)}
-    .scan-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;border:none;padding:14px 36px;border-radius:30px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.05em;margin:14px auto;display:inline-block}
-    .scan-btn:active{opacity:0.85}
-    .scan-result-box{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);padding:18px;margin-top:16px;text-align:left}
-    .scan-result-box h3{color:var(--goldb);margin-bottom:8px;font-family:"Playfair Display",serif;font-size:20px}
-    .verdict-bar{display:flex;align-items:flex-start;gap:12px;margin:14px 0;padding:14px;border-radius:10px}
-    .verdict-bar.buy{background:rgba(31,197,90,0.1);border:1px solid rgba(31,197,90,0.3)}
-    .verdict-bar.skip{background:rgba(232,68,68,0.1);border:1px solid rgba(232,68,68,0.3)}
-    .verdict-bar.caution{background:rgba(232,150,10,0.1);border:1px solid rgba(232,150,10,0.3)}
-    .verdict-icon{font-size:34px;flex-shrink:0;line-height:1}
-    .verdict-label{font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px}
-    .verdict-label.buy{color:var(--legit)}
-    .verdict-label.skip{color:var(--sourced)}
-    .verdict-label.caution{color:var(--mixed)}
-    .verdict-msg{font-size:13px;color:var(--text2);line-height:1.5}
-    .alts-section{margin-top:16px}
-    .alts-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--gold3)}
-    .alt-card{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:10px 14px;margin-bottom:8px;cursor:pointer;transition:border-color 0.2s}
-    .alt-card:hover{border-color:var(--gold)}
-    .alt-name{font-size:14px;font-weight:600;color:var(--text)}
-    .alt-dist{font-size:11px;color:var(--text2);margin-top:2px}
+    .scan-crosshair{width:60%;max-width:200px;aspect-ratio:1;border:2px solid rgba(201,148,58,.7);border-radius:8px;box-shadow:0 0 0 9999px rgba(0,0,0,.35)}
+    .scan-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;border:none;padding:14px 36px;border-radius:30px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.05em;margin:14px auto;display:inline-block}
+    .srbox{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);padding:18px;margin-top:16px;text-align:left}
+    .srbox h3{color:var(--goldb);margin-bottom:8px;font-family:Playfair Display,serif;font-size:20px}
+    .vbar{display:flex;align-items:flex-start;gap:12px;margin:14px 0;padding:14px;border-radius:10px}
+    .vbar.buy{background:rgba(31,197,90,.1);border:1px solid rgba(31,197,90,.3)}
+    .vbar.skip{background:rgba(232,68,68,.1);border:1px solid rgba(232,68,68,.3)}
+    .vbar.caution{background:rgba(232,150,10,.1);border:1px solid rgba(232,150,10,.3)}
+    .vicon{font-size:34px;flex-shrink:0;line-height:1}
+    .vlabel{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+    .vlabel.buy{color:var(--legit)} .vlabel.skip{color:var(--sourced)} .vlabel.caution{color:var(--mixed)}
+    .vmsg{font-size:13px;color:var(--text2);line-height:1.5}
+    .alts{margin-top:16px} .alts-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--gold3)}
+    .altcard{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:10px 14px;margin-bottom:8px;cursor:pointer}
+    .altcard:hover{border-color:var(--gold)} .alt-name{font-size:14px;font-weight:600;color:var(--text)} .alt-dist{font-size:11px;color:var(--text2);margin-top:2px}
     .admin-panel{background:var(--bg3);border:1px solid var(--gold3);border-radius:var(--radius);padding:20px;margin-top:4px}
-    .admin-panel h3{color:var(--goldb);margin-bottom:14px;font-family:"Playfair Display",serif}
+    .admin-panel h3{color:var(--goldb);margin-bottom:14px;font-family:Playfair Display,serif}
     .admin-panel input,.admin-panel select{width:100%;padding:10px 14px;margin-bottom:10px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:14px;outline:none}
     .admin-panel input:focus,.admin-panel select:focus{border-color:var(--gold)}
     .admin-panel input::placeholder{color:var(--text3)}
-    .btn-save{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;padding:13px;border:none;border-radius:30px;font-weight:700;font-size:14px;width:100%;cursor:pointer;letter-spacing:0.05em}
-    .empty-state{text-align:center;padding:48px 16px;color:var(--text3)}
-    .empty-state .e-icon{font-size:48px;margin-bottom:12px}
+    .btn-save{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;padding:13px;border:none;border-radius:30px;font-weight:700;font-size:14px;width:100%;cursor:pointer}
+    .empty-state{text-align:center;padding:48px 16px;color:var(--text3)} .e-icon{font-size:48px;margin-bottom:12px}
   </style>
 </head>
 <body>
-  <div id="header">
-    <div class="h-icon">🥃</div>
-    <div class="h-title">BOURBON TRUTH</div>
-    <div class="h-sub">Distillery Transparency Database</div>
-  </div>
+  <div id="header"><div class="h-icon">&#x1F943;</div><div class="h-title">BOURBON TRUTH</div><div class="h-sub">Distillery Transparency Database</div></div>
   <div id="main"></div>
   <div id="tabs">
-    <div class="tab active" onclick="switchTab(0)"><div class="tab-icon">📋</div><div>DATABASE</div></div>
-    <div class="tab" onclick="switchTab(1)"><div class="tab-icon">📷</div><div>SCAN</div></div>
-    <div class="tab" onclick="switchTab(2)"><div class="tab-icon">➕</div><div>ADMIN</div></div>
+    <div class="tab active" onclick="switchTab(0)"><div class="tab-icon">&#x1F4CB;</div><div>DATABASE</div></div>
+    <div class="tab" onclick="switchTab(1)"><div class="tab-icon">&#x1F4F7;</div><div>SCAN</div></div>
+    <div class="tab" onclick="switchTab(2)"><div class="tab-icon">&#x2795;</div><div>ADMIN</div></div>
   </div>
   <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyAVvQOA2f0EExyhsQcSboT4TBovEzAqVYc",
-      authDomain: "bourbon-scanner.firebaseapp.com",
-      databaseURL: "https://bourbon-scanner-default-rtdb.firebaseio.com",
-      projectId: "bourbon-scanner",
-      storageBucket: "bourbon-scanner.firebasestorage.app",
-      messagingSenderId: "162552372589",
-      appId: "1:162552372589:web:ddacaff140a6359ceb4e64",
-      measurementId: "G-KTQNH3HYPN"
-    };
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.database();
-    var currentFilter = "all";
-    var currentTab = 0;
-    var openCard = null;
-    var bourbonData = {};
-    var scannerRunning = false;
-    var lastScanned = null;
-
-    db.ref("bourbons").on("value", function(snapshot) {
-      bourbonData = snapshot.val() || {};
-      if (currentTab === 0) renderDatabase();
-      if (currentTab === 2) renderAdminList();
-    });
-
-    function switchTab(idx) {
-      currentTab = idx;
-      document.querySelectorAll(".tab").forEach(function(t, i) { t.classList.toggle("active", i === idx); });
-      if (scannerRunning && idx !== 1) stopScanner();
-      if (idx === 0) renderDatabase();
-      else if (idx === 1) renderScanner();
-      else renderAdmin();
+    var fb={apiKey:"AIzaSyAVvQOA2f0EExyhsQcSboT4TBovEzAqVYc",authDomain:"bourbon-scanner.firebaseapp.com",databaseURL:"https://bourbon-scanner-default-rtdb.firebaseio.com",projectId:"bourbon-scanner",storageBucket:"bourbon-scanner.firebasestorage.app",messagingSenderId:"162552372589",appId:"1:162552372589:web:ddacaff140a6359ceb4e64"};
+    firebase.initializeApp(fb);
+    var db=firebase.database();
+    var CF="all",CT=0,OC=null,BD={},SR=false,LS=null;
+    db.ref("bourbons").on("value",function(s){BD=s.val()||{};if(CT===0)rDB();if(CT===2)rAL();});
+    function switchTab(i){CT=i;document.querySelectorAll(".tab").forEach(function(t,j){t.classList.toggle("active",j===i);});if(SR&&i!==1)stopScan();if(i===0)rDB();else if(i===1)rScan();else rAdmin();}
+    function rDB(){
+      var m=document.getElementById("main");if(!m)return;
+      var sw=document.createElement("div");sw.className="search-wrap";
+      var si=document.createElement("span");si.className="search-icon";si.textContent="&#x1F50D;";
+      var inp=document.createElement("input");inp.id="si";inp.type="text";inp.placeholder="Search by name or distiller...";inp.autocomplete="off";
+      sw.appendChild(si);sw.appendChild(inp);
+      var fr=document.createElement("div");fr.className="filter-row";fr.id="fr";
+      var cl=document.createElement("div");cl.id="cl";
+      m.innerHTML="";m.appendChild(sw);m.appendChild(fr);m.appendChild(cl);
+      rFR();rCL("");
+      inp.addEventListener("input",function(){rCL(this.value);});
     }
-
-    function renderDatabase() {
-      var main = document.getElementById("main");
-      if (!main) return;
-      main.innerHTML =
-        "<div class=\"search-wrap\">"
-        + "<span class=\"search-icon\">🔍</span>"
-        + "<input id=\"si\" type=\"text\" placeholder=\"Search by name or distiller...\" autocomplete=\"off\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"false\">"
-        + "</div>"
-        + "<div class=\"filter-row\" id=\"filter-row\"></div>"
-        + "<div id=\"card-list\"></div>";
-      renderFilterRow();
-      renderCardList("");
-      document.getElementById("si").addEventListener("input", function() { renderCardList(this.value); });
-    }
-
-    function renderFilterRow() {
-      var fr = document.getElementById("filter-row");
-      if (!fr) return;
-      var filters = ["all","Legit","Sourced","Mixed"];
-      var labels  = ["All","Legit","Sourced","Mixed"];
-      var html = "";
-      filters.forEach(function(f, i) {
-        html += "<button class=\"filter-btn" + (currentFilter === f ? " active" : "") + "\" onclick=\"setFilter(&quot;" + f + "&quot;)\">" + labels[i] + "</button>";
+    function rFR(){
+      var fr=document.getElementById("fr");if(!fr)return;
+      ["all","Legit","Sourced","Mixed"].forEach(function(f){
+        var b=document.createElement("button");b.className="filter-btn"+(CF===f?" active":"");
+        b.textContent=f==="all"?"All":f;
+        b.onclick=function(){setF(f);};
+        fr.appendChild(b);
       });
-      fr.innerHTML = html;
     }
-
-    function renderCardList(query) {
-      var list = document.getElementById("card-list");
-      if (!list) return;
-      var q = (query || "").toLowerCase().trim();
-      var entries = Object.entries(bourbonData);
-      var filtered = entries.filter(function(e) {
-        var b = e[1];
-        var mf = currentFilter === "all" || b.status === currentFilter;
-        var ms = !q || b.name.toLowerCase().indexOf(q) >= 0 || (b.distiller || "").toLowerCase().indexOf(q) >= 0 || e[0].indexOf(q) >= 0;
-        return mf && ms;
+    function rCL(q){
+      var cl=document.getElementById("cl");if(!cl)return;
+      var qL=(q||"").toLowerCase().trim();
+      var items=Object.entries(BD).filter(function(e){
+        var b=e[1];
+        return (CF==="all"||b.status===CF)&&(!qL||b.name.toLowerCase().indexOf(qL)>=0||(b.distiller||"").toLowerCase().indexOf(qL)>=0||e[0].indexOf(qL)>=0);
       });
-      if (filtered.length === 0) {
-        list.innerHTML = "<div class=\"empty-state\"><div class=\"e-icon\">🥃</div><div>No bourbons found</div></div>";
-        return;
+      cl.innerHTML="";
+      if(items.length===0){var es=document.createElement("div");es.className="empty-state";es.innerHTML="<div class=\"e-icon\">&#x1F943;</div><div>No bourbons found</div>";cl.appendChild(es);return;}
+      items.forEach(function(e){
+        var upc=e[0],b=e[1];
+        var sc=b.status==="Legit"?"legit":b.status==="Sourced"?"sourced":"mixed";
+        var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
+        var card=document.createElement("div");card.className="card";
+        card.innerHTML='<div class="card-head"><div class="card-badge badge-'+sc+'">'+ic+'</div><div class="card-info"><div class="card-name">'+b.name+'</div><div class="card-dist">'+( b.distiller||"Unknown")+'</div></div><span class="status-pill pill-'+sc+'">'+b.status.toUpperCase()+'</span></div><div class="card-body'+(OC===upc?" open":"")+'"><div class="card-notes">'+(b.notes||"No additional notes.")+'</div><div style="margin-top:8px;font-size:11px;color:var(--text3)">UPC: '+upc+'</div></div>';
+        card.onclick=function(){OC=OC===upc?null:upc;var si=document.getElementById("si");rCL(si?si.value:"");};
+        cl.appendChild(card);
+      });
+    }
+    function setF(f){CF=f;rFR();var si=document.getElementById("si");rCL(si?si.value:"");}
+    function rScan(){
+      var m=document.getElementById("main");if(!m)return;
+      m.innerHTML='<div class="scan-area"><h2 style="color:var(--goldb);font-family:Georgia,serif;margin-bottom:6px;">Scan a Barcode</h2><p style="color:var(--text2);font-size:13px;margin-bottom:16px;">Point your camera at the UPC barcode</p><div id="sc"><div class="scan-overlay"><div class="scan-crosshair"></div></div></div><div style="margin-top:12px"><button class="scan-btn" onclick="toggleScan()" id="stb">&#9654; Start Scanner</button></div><div id="sr"></div></div>';
+    }
+    function toggleScan(){if(SR)stopScan();else startScan();}
+    function startScan(){
+      if(typeof Quagga==="undefined"){alert("Scanner not loaded.");return;}
+      var btn=document.getElementById("stb");if(btn)btn.textContent="Stop Scanner";
+      Quagga.init({inputStream:{name:"Live",type:"LiveStream",target:document.getElementById("sc"),constraints:{facingMode:{ideal:"environment"},width:{ideal:1280},height:{ideal:720}}},decoder:{readers:["ean_reader","upc_reader","upc_e_reader"]},locate:true},function(err){
+        if(err){console.error(err);return;}Quagga.start();SR=true;
+      });
+      Quagga.onDetected(function(r){var c=r.codeResult.code;if(c===LS)return;LS=c;setTimeout(function(){LS=null;},3000);stopScan();lookup(c);});
+    }
+    function stopScan(){if(typeof Quagga!=="undefined"&&SR){try{Quagga.stop();}catch(e){}}SR=false;var btn=document.getElementById("stb");if(btn)btn.textContent="Start Scanner";}
+    function buildVerdict(upc,b){
+      var st=b.status,all=Object.entries(BD);
+      var vi,vc,vl,vm;
+      if(st==="Legit"){vi="&#x1F3C6;";vc="buy";vl="BUY THIS";vm="This bourbon is distilled on-site by a transparent operation. You are getting the real deal.";}
+      else if(st==="Sourced"){vi="&#x26D4;";vc="skip";vl="SKIP THIS";vm="This is a sourced product. Another distillery made it. You are paying a premium for a label, not craftsmanship.";}
+      else{vi="&#x26A0;";vc="caution";vl="USE CAUTION";vm="This bourbon has mixed or unclear sourcing. Transparency is limited.";}
+      var h='<div class="vbar '+vc+'"><div class="vicon">'+vi+'</div><div><div class="vlabel '+vc+'">'+vl+'</div><div class="vmsg">'+vm+'</div></div></div>';
+      var legits=all.filter(function(e){return e[0]!==upc&&e[1].status==="Legit";});
+      if((st==="Sourced"||st==="Mixed")&&legits.length>0){
+        h+='<div class="alts"><div class="alts-title">&#x2705; Buy These Instead</div>';
+        legits.slice(0,3).forEach(function(e){
+          var u=e[0],bb=e[1];
+          h+='<div class="altcard" onclick="showAlt(\''+ u +'\')">'+
+             '<div><div class="alt-name">'+bb.name+'</div><div class="alt-dist">'+(bb.distiller||"")+'</div></div>'+
+             '<span class="status-pill pill-legit">LEGIT</span></div>';
+        });
+        h+='</div>';
       }
-      var html = "";
-      filtered.forEach(function(entry) {
-        var upc = entry[0], b = entry[1];
-        var sc   = b.status === "Legit" ? "legit" : b.status === "Sourced" ? "sourced" : "mixed";
-        var icon = b.status === "Legit" ? "✅" : b.status === "Sourced" ? "🔴" : "🟡";
-        var isOpen = openCard === upc;
-        html += "<div class=\"card\" onclick=\"toggleCard(&quot;" + upc + "&quot;)\">";
-        html += "<div class=\"card-head\">";
-        html += "<div class=\"card-badge badge-" + sc + "\">" + icon + "</div>";
-        html += "<div class=\"card-info\"><div class=\"card-name\">" + b.name + "</div><div class=\"card-dist\">" + (b.distiller || "Unknown Distiller") + "</div></div>";
-        html += "<span class=\"status-pill pill-" + sc + "\">" + b.status.toUpperCase() + "</span>";
-        html += "</div>";
-        html += "<div class=\"card-body" + (isOpen ? " open" : "") + "\">";
-        html += "<div class=\"card-notes\">" + (b.notes || "No additional notes.") + "</div>";
-        html += "<div style=\"margin-top:8px;font-size:11px;color:var(--text3)\">UPC: " + upc + "</div>";
-        html += "</div></div>";
-      });
-      list.innerHTML = html;
-    }
-
-    function toggleCard(upc) {
-      openCard = openCard === upc ? null : upc;
-      var si = document.getElementById("si");
-      renderCardList(si ? si.value : "");
-    }
-
-    function setFilter(f) {
-      currentFilter = f;
-      renderFilterRow();
-      var si = document.getElementById("si");
-      renderCardList(si ? si.value : "");
-    }
-
-    function renderScanner() {
-      var main = document.getElementById("main");
-      if (!main) return;
-      main.innerHTML =
-        "<div class=\"scan-area\">"
-        + "<h2 style=\"color:var(--goldb);font-family:Georgia,serif;margin-bottom:6px;\">Scan a Barcode</h2>"
-        + "<p style=\"color:var(--text2);font-size:13px;margin-bottom:16px;\">Point your camera at the UPC barcode</p>"
-        + "<div id=\"scanner-container\"><div class=\"scan-overlay\"><div class=\"scan-crosshair\"></div></div></div>"
-        + "<div style=\"margin-top:12px\"><button class=\"scan-btn\" onclick=\"toggleScanner()\" id=\"scan-toggle-btn\">&#9654; Start Scanner</button></div>"
-        + "<div id=\"scan-result\"></div>"
-        + "</div>";
-    }
-
-    function toggleScanner() { if (scannerRunning) stopScanner(); else startScanner(); }
-
-    function startScanner() {
-      if (typeof Quagga === "undefined") { alert("Scanner library not loaded."); return; }
-      var btn = document.getElementById("scan-toggle-btn");
-      if (btn) btn.textContent = "Stop Scanner";
-      Quagga.init({
-        inputStream: { name:"Live", type:"LiveStream", target:document.getElementById("scanner-container"),
-          constraints:{ facingMode:{ideal:"environment"}, width:{ideal:1280}, height:{ideal:720} } },
-        decoder: { readers:["ean_reader","upc_reader","upc_e_reader"] },
-        locate: true
-      }, function(err) {
-        if (err) { console.error(err); alert("Camera error: " + err); return; }
-        Quagga.start();
-        scannerRunning = true;
-      });
-      Quagga.onDetected(function(result) {
-        var code = result.codeResult.code;
-        if (code === lastScanned) return;
-        lastScanned = code;
-        setTimeout(function() { lastScanned = null; }, 3000);
-        stopScanner();
-        lookupBarcode(code);
-      });
-    }
-
-    function stopScanner() {
-      if (typeof Quagga !== "undefined" && scannerRunning) { try { Quagga.stop(); } catch(e) {} }
-      scannerRunning = false;
-      var btn = document.getElementById("scan-toggle-btn");
-      if (btn) btn.textContent = "Start Scanner";
-    }
-
-    function buildRecommendation(scannedUpc, scannedB) {
-      var status = scannedB.status;
-      var allEntries = Object.entries(bourbonData);
-      var verdictIcon, verdictClass, verdictLabel, verdictMsg;
-      if (status === "Legit") {
-        verdictIcon = "🏆"; verdictClass = "buy";
-        verdictLabel = "BUY THIS";
-        verdictMsg = "This bourbon is distilled on-site by a transparent operation. You are getting the real deal.";
-      } else if (status === "Sourced") {
-        verdictIcon = "⛔"; verdictClass = "skip";
-        verdictLabel = "SKIP THIS";
-        verdictMsg = "This is a sourced product. Another distillery made it. You are paying a premium for a label, not craftsmanship.";
-      } else {
-        verdictIcon = "⚠️"; verdictClass = "caution";
-        verdictLabel = "USE CAUTION";
-        verdictMsg = "This bourbon has mixed or unclear sourcing. Transparency from this producer is limited.";
+      if(st==="Legit"&&legits.length>0){
+        h+='<div class="alts"><div class="alts-title">&#x1F943; Also Consider</div>';
+        legits.slice(0,3).forEach(function(e){
+          var u=e[0],bb=e[1];
+          h+='<div class="altcard" onclick="showAlt(\''+ u +'\')">'+
+             '<div><div class="alt-name">'+bb.name+'</div><div class="alt-dist">'+(bb.distiller||"")+'</div></div>'+
+             '<span class="status-pill pill-legit">LEGIT</span></div>';
+        });
+        h+='</div>';
       }
-
-      var html = "<div class=\"verdict-bar " + verdictClass + "\">";
-      html += "<div class=\"verdict-icon\">" + verdictIcon + "</div>";
-      html += "<div><div class=\"verdict-label " + verdictClass + "\">" + verdictLabel + "</div>";
-      html += "<div class=\"verdict-msg\">" + verdictMsg + "</div></div></div>";
-
-      if (status === "Sourced" || status === "Mixed") {
-        var legits = allEntries.filter(function(e) { return e[0] !== scannedUpc && e[1].status === "Legit"; });
-        if (legits.length > 0) {
-          html += "<div class=\"alts-section\">";
-          html += "<div class=\"alts-title\">✅ Buy These Instead</div>";
-          legits.slice(0, 3).forEach(function(e) {
-            var u = e[0], b = e[1];
-            html += "<div class=\"alt-card\" onclick=\"showAltDetail(&quot;" + u + "&quot;)\">";
-            html += "<div><div class=\"alt-name\">" + b.name + "</div><div class=\"alt-dist\">" + (b.distiller || "") + "</div></div>";
-            html += "<span class=\"status-pill pill-legit\">LEGIT</span></div>";
-          });
-          html += "</div>";
+      return h;
+    }
+    function showAlt(upc){
+      var b=BD[upc];if(!b)return;
+      var sc=b.status==="Legit"?"legit":b.status==="Sourced"?"sourced":"mixed";
+      var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
+      var rd=document.getElementById("sr");if(!rd)return;
+      rd.innerHTML='<div class="srbox"><div style="font-size:11px;color:var(--text3);margin-bottom:10px;cursor:pointer;" onclick="lookup(window._lsc)">&#8592; Back</div><h3>'+ic+" "+b.name+'</h3><p style="color:var(--text2);font-size:13px;margin-bottom:8px;">Distiller: '+(b.distiller||"Unknown")+'</p><span class="status-pill pill-'+sc+'">'+b.status.toUpperCase()+'</span><p style="margin-top:12px;font-size:13px;color:var(--text2);">'+(b.notes||"")+'</p><p style="margin-top:8px;font-size:11px;color:var(--text3)">UPC: '+upc+'</p></div>';
+    }
+    function lookup(code){
+      window._lsc=code;
+      var rd=document.getElementById("sr");
+      if(rd)rd.innerHTML='<div class="srbox"><p style="color:var(--text2)">Looking up '+code+'...</p></div>';
+      db.ref("bourbons/"+code).once("value").then(function(snap){
+        rd=document.getElementById("sr");if(!rd)return;
+        if(snap.exists()){
+          var b=snap.val();
+          var sc=b.status==="Legit"?"legit":b.status==="Sourced"?"sourced":"mixed";
+          var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
+          var h='<div class="srbox"><h3>'+ic+" "+b.name+'</h3><p style="color:var(--text2);font-size:13px;margin-bottom:8px;">Distiller: '+(b.distiller||"Unknown")+'</p><span class="status-pill pill-'+sc+'">'+b.status.toUpperCase()+'</span>';
+          if(b.notes)h+='<p style="margin-top:10px;font-size:13px;color:var(--text2);">'+b.notes+'</p>';
+          h+='<p style="margin-top:6px;font-size:11px;color:var(--text3)">UPC: '+code+'</p>';
+          h+='<hr style="border:none;border-top:1px solid var(--gold3);margin:16px 0">';
+          h+=buildVerdict(code,b);
+          h+='<div style="text-align:center;margin-top:16px"><button class="scan-btn" style="padding:10px 28px;" onclick="toggleScan()">&#9654; Scan Another</button></div></div>';
+          rd.innerHTML=h;
+        }else{
+          rd.innerHTML='<div class="srbox"><h3>Not in Database</h3><p style="color:var(--text2);font-size:13px;margin-bottom:12px;">UPC <strong style="color:var(--goldb)">'+code+'</strong> not found.</p><button class="scan-btn" style="padding:10px 24px;margin-bottom:8px;" onclick="openAdmin(\''+ code +'\')" >Add This Bourbon</button><br><button class="scan-btn" style="padding:10px 24px;background:transparent;color:var(--text2);border:1px solid var(--gold3);margin-top:6px;" onclick="toggleScan()">Scan Again</button></div>';
         }
-      }
-
-      if (status === "Legit") {
-        var others = allEntries.filter(function(e) { return e[0] !== scannedUpc && e[1].status === "Legit"; });
-        if (others.length > 0) {
-          html += "<div class=\"alts-section\">";
-          html += "<div class=\"alts-title\">🥃 Also Consider</div>";
-          others.slice(0, 3).forEach(function(e) {
-            var u = e[0], b = e[1];
-            html += "<div class=\"alt-card\" onclick=\"showAltDetail(&quot;" + u + "&quot;)\">";
-            html += "<div><div class=\"alt-name\">" + b.name + "</div><div class=\"alt-dist\">" + (b.distiller || "") + "</div></div>";
-            html += "<span class=\"status-pill pill-legit\">LEGIT</span></div>";
-          });
-          html += "</div>";
-        }
-      }
-      return html;
+      }).catch(function(e){var rd2=document.getElementById("sr");if(rd2)rd2.innerHTML='<div class="srbox"><p style="color:var(--sourced)">Error: '+e.message+'</p></div>';});
     }
-
-    function showAltDetail(upc) {
-      var b = bourbonData[upc];
-      if (!b) return;
-      var sc   = b.status === "Legit" ? "legit" : b.status === "Sourced" ? "sourced" : "mixed";
-      var icon = b.status === "Legit" ? "✅" : b.status === "Sourced" ? "🔴" : "🟡";
-      var rd = document.getElementById("scan-result");
-      if (!rd) return;
-      rd.innerHTML =
-        "<div class=\"scan-result-box\">"
-        + "<div style=\"font-size:11px;color:var(--text3);margin-bottom:10px;cursor:pointer;\" onclick=\"lookupBarcode(window._lastScanCode)\">&#8592; Back to scan result</div>"
-        + "<h3>" + icon + " " + b.name + "</h3>"
-        + "<p style=\"color:var(--text2);font-size:13px;margin-bottom:8px;\">Distiller: " + (b.distiller || "Unknown") + "</p>"
-        + "<span class=\"status-pill pill-" + sc + "\">" + b.status.toUpperCase() + "</span>"
-        + "<p style=\"margin-top:12px;font-size:13px;color:var(--text2);\">" + (b.notes || "") + "</p>"
-        + "<p style=\"margin-top:8px;font-size:11px;color:var(--text3)\">UPC: " + upc + "</p>"
-        + "</div>";
+    function openAdmin(code){switchTab(2);setTimeout(function(){var f=document.getElementById("nU");if(f){f.value=code;f.focus();}},100);}
+    function rAdmin(){
+      var m=document.getElementById("main");if(!m)return;
+      m.innerHTML='<div class="admin-panel"><h3>Add New Bourbon</h3><input type="text" id="nU" placeholder="Barcode / UPC" autocomplete="off"><input type="text" id="nN" placeholder="Bourbon Name" autocomplete="off"><select id="nS"><option value="Legit">Legit (Distilled on-site)</option><option value="Sourced">Sourced (MGP / Other)</option><option value="Mixed">Mixed / Unknown</option></select><input type="text" id="nD" placeholder="Actual Distiller" autocomplete="off"><input type="text" id="nNotes" placeholder="Notes (optional)" autocomplete="off"><button class="btn-save" onclick="saveToDB()">SAVE TO CLOUD</button></div><div id="al" style="margin-top:20px;"></div>';
+      rAL();
     }
-
-    function lookupBarcode(code) {
-      window._lastScanCode = code;
-      var rd = document.getElementById("scan-result");
-      if (rd) rd.innerHTML = "<div class=\"scan-result-box\"><p style=\"color:var(--text2)\">🔍 Looking up " + code + "...</p></div>";
-      db.ref("bourbons/" + code).once("value").then(function(snapshot) {
-        rd = document.getElementById("scan-result");
-        if (!rd) return;
-        if (snapshot.exists()) {
-          var b  = snapshot.val();
-          var sc   = b.status === "Legit" ? "legit" : b.status === "Sourced" ? "sourced" : "mixed";
-          var icon = b.status === "Legit" ? "✅" : b.status === "Sourced" ? "🔴" : "🟡";
-          var html = "<div class=\"scan-result-box\">";
-          html += "<h3>" + icon + " " + b.name + "</h3>";
-          html += "<p style=\"color:var(--text2);font-size:13px;margin-bottom:8px;\">Distiller: " + (b.distiller || "Unknown") + "</p>";
-          html += "<span class=\"status-pill pill-" + sc + "\">" + b.status.toUpperCase() + "</span>";
-          if (b.notes) html += "<p style=\"margin-top:10px;font-size:13px;color:var(--text2);\">" + b.notes + "</p>";
-          html += "<p style=\"margin-top:6px;font-size:11px;color:var(--text3)\">UPC: " + code + "</p>";
-          html += "<hr style=\"border:none;border-top:1px solid var(--gold3);margin:16px 0\">";
-          html += buildRecommendation(code, b);
-          html += "<div style=\"text-align:center;margin-top:16px\"><button class=\"scan-btn\" style=\"padding:10px 28px;\" onclick=\"toggleScanner()\">&#9654; Scan Another</button></div>";
-          html += "</div>";
-          rd.innerHTML = html;
-        } else {
-          rd.innerHTML =
-            "<div class=\"scan-result-box\">"
-            + "<h3>❓ Not in Database</h3>"
-            + "<p style=\"color:var(--text2);font-size:13px;margin-bottom:12px;\">UPC <strong style=\"color:var(--goldb)\">" + code + "</strong> was not found.</p>"
-            + "<button class=\"scan-btn\" style=\"padding:10px 24px;margin-bottom:8px;\" onclick=\"openAdminWithUPC(&quot;" + code + "&quot;)\">➕ Add This Bourbon</button><br>"
-            + "<button class=\"scan-btn\" style=\"padding:10px 24px;background:transparent;color:var(--text2);border:1px solid var(--gold3);margin-top:6px;\" onclick=\"toggleScanner()\">&#9654; Scan Again</button>"
-            + "</div>";
-        }
-      }).catch(function(err) {
-        var rd2 = document.getElementById("scan-result");
-        if (rd2) rd2.innerHTML = "<div class=\"scan-result-box\"><p style=\"color:var(--sourced)\">Error: " + err.message + "</p></div>";
+    function rAL(){
+      var ld=document.getElementById("al");if(!ld)return;
+      var es=Object.entries(BD);if(es.length===0){ld.innerHTML="";return;}
+      var h='<h3 style="color:var(--text2);font-size:12px;margin-bottom:10px;letter-spacing:.1em;text-transform:uppercase;">Existing Entries ('+es.length+')</h3>';
+      es.forEach(function(e){
+        var upc=e[0],b=e[1];
+        var sc=b.status==="Legit"?"legit":b.status==="Sourced"?"sourced":"mixed";
+        h+='<div style="background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">'+
+           '<div><div style="font-size:14px;color:var(--text);font-weight:600;">'+b.name+'</div>'+
+           '<div style="font-size:11px;color:var(--text3);margin-top:2px;">UPC: '+upc+' <span class="status-pill pill-'+sc+'" style="font-size:9px;padding:2px 7px;">'+b.status+'</span></div></div>'+
+           '<button onclick="delEntry(\''+ upc +'\')" style="background:rgba(232,68,68,.15);color:var(--sourced);border:1px solid var(--sourced);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:14px;">&#x1F5D1;</button></div>';
       });
+      ld.innerHTML=h;
     }
-
-    function openAdminWithUPC(code) {
-      switchTab(2);
-      setTimeout(function() { var f = document.getElementById("newUPC"); if (f) { f.value = code; f.focus(); } }, 100);
+    function saveToDB(){
+      var upc=document.getElementById("nU").value.trim();
+      var name=document.getElementById("nN").value.trim();
+      var status=document.getElementById("nS").value;
+      var dist=document.getElementById("nD").value.trim();
+      var notes=document.getElementById("nNotes").value.trim();
+      if(!upc||!name){alert("UPC and Name required.");return;}
+      db.ref("bourbons/"+upc).set({name:name,status:status,distiller:dist,notes:notes,timestamp:Date.now()})
+        .then(function(){alert("Saved!");document.getElementById("nU").value="";document.getElementById("nN").value="";document.getElementById("nD").value="";document.getElementById("nNotes").value="";rAL();})
+        .catch(function(e){alert("Error: "+e.message);});
     }
-
-    function renderAdmin() {
-      var main = document.getElementById("main");
-      if (!main) return;
-      main.innerHTML =
-        "<div class=\"admin-panel\">"
-        + "<h3>➕ Add New Bourbon</h3>"
-        + "<input type=\"text\" id=\"newUPC\" placeholder=\"Barcode / UPC\" autocomplete=\"off\">"
-        + "<input type=\"text\" id=\"newName\" placeholder=\"Bourbon Name\" autocomplete=\"off\">"
-        + "<select id=\"newStatus\">"
-        + "<option value=\"Legit\">✅ Legit (Distilled on-site)</option>"
-        + "<option value=\"Sourced\">🔴 Sourced (MGP / Other)</option>"
-        + "<option value=\"Mixed\">🟡 Mixed / Unknown</option>"
-        + "</select>"
-        + "<input type=\"text\" id=\"newDistiller\" placeholder=\"Actual Distiller\" autocomplete=\"off\">"
-        + "<input type=\"text\" id=\"newNotes\" placeholder=\"Notes (optional)\" autocomplete=\"off\">"
-        + "<button class=\"btn-save\" onclick=\"saveToDatabase()\">💾 SAVE TO CLOUD</button>"
-        + "</div>"
-        + "<div id=\"admin-list\" style=\"margin-top:20px;\"></div>";
-      renderAdminList();
+    function delEntry(upc){
+      var name=BD[upc]&&BD[upc].name?BD[upc].name:upc;
+      if(!confirm("Delete "+name+"?"))return;
+      db.ref("bourbons/"+upc).remove().then(function(){rAL();});
     }
-
-    function renderAdminList() {
-      var ld = document.getElementById("admin-list");
-      if (!ld) return;
-      var entries = Object.entries(bourbonData);
-      if (entries.length === 0) { ld.innerHTML = ""; return; }
-      var html = "<h3 style=\"color:var(--text2);font-size:12px;margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;\">Existing Entries (" + entries.length + ")</h3>";
-      entries.forEach(function(entry) {
-        var upc = entry[0], b = entry[1];
-        var sc = b.status === "Legit" ? "legit" : b.status === "Sourced" ? "sourced" : "mixed";
-        html += "<div style=\"background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;\">"
-          + "<div><div style=\"font-size:14px;color:var(--text);font-weight:600;\">" + b.name + "</div>"
-          + "<div style=\"font-size:11px;color:var(--text3);margin-top:2px;\">UPC: " + upc + " &nbsp;&#183;&nbsp; <span class=\"status-pill pill-" + sc + "\" style=\"font-size:9px;padding:2px 7px;\">" + b.status + "</span></div></div>"
-          + "<button onclick=\"deleteEntry(&quot;" + upc + "&quot;)\" style=\"background:rgba(232,68,68,0.15);color:var(--sourced);border:1px solid var(--sourced);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:14px;flex-shrink:0;\">🗑</button>"
-          + "</div>";
-      });
-      ld.innerHTML = html;
-    }
-
-    function saveToDatabase() {
-      var upc = document.getElementById("newUPC").value.trim();
-      var name = document.getElementById("newName").value.trim();
-      var status = document.getElementById("newStatus").value;
-      var distiller = document.getElementById("newDistiller").value.trim();
-      var notes = document.getElementById("newNotes").value.trim();
-      if (!upc || !name) { alert("UPC and Name are required."); return; }
-      db.ref("bourbons/" + upc).set({ name:name, status:status, distiller:distiller, notes:notes, timestamp:Date.now() })
-        .then(function() {
-          alert("Saved!");
-          document.getElementById("newUPC").value = "";
-          document.getElementById("newName").value = "";
-          document.getElementById("newDistiller").value = "";
-          document.getElementById("newNotes").value = "";
-          renderAdminList();
-        })
-        .catch(function(e) { alert("Error: " + e.message); });
-    }
-
-    function deleteEntry(upc) {
-      var name = bourbonData[upc] && bourbonData[upc].name ? bourbonData[upc].name : upc;
-      if (!confirm("Delete " + name + "?")) return;
-      db.ref("bourbons/" + upc).remove().then(function() { renderAdminList(); });
-    }
-
-    window.onload = function() { renderDatabase(); };
+    window.onload=function(){rDB();};
   </script>
 </body>
 </html>
