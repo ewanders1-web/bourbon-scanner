@@ -92,8 +92,8 @@ var db=firebase.database();
 var CT=0,CF="all",OC=null,SR=false,LS=null;
 var BD={},COL={},WANT={};
 db.ref("bourbons").on("value",function(s){BD=s.val()||{};if(CT===0)rDB();});
-db.ref("collection").on("value",function(s){COL=s.val()||{};if(CT===2)rCOL();updateBadges();});
-db.ref("watchlist").on("value",function(s){WANT=s.val()||{};if(CT===3)rWANT();updateBadges();});
+db.ref("collection").on("value",function(s){COL=s.val()||{};if(CT===2)rCOL();else if(CT===0){var si=document.getElementById("si");rCL(si?si.value:"");}updateBadges();});
+db.ref("watchlist").on("value",function(s){WANT=s.val()||{};if(CT===3)rWANT();else if(CT===0){var si=document.getElementById("si");rCL(si?si.value:"");}updateBadges();});
 function go(i){
   CT=i;
   for(var j=0;j<5;j++){var t=document.getElementById("t"+j);if(t)t.classList.toggle("active",j===i);}
@@ -103,8 +103,8 @@ function go(i){
 function updateBadges(){
   var c2=document.getElementById("t2"),c3=document.getElementById("t3");
   var cn=Object.keys(COL).length,wn=Object.keys(WANT).length;
-  if(c2)c2.querySelector(".ticon").textContent=cn>0?"Collection ("+cn+")":"Collection";
-  if(c3)c3.querySelector(".ticon").textContent=wn>0?"Want ("+wn+")":"Want";
+  if(c2){var lbl2=c2.querySelector("div:last-child");if(lbl2)lbl2.textContent=cn>0?"COLLECTION ("+cn+")":"COLLECTION";}
+  if(c3){var lbl3=c3.querySelector("div:last-child");if(lbl3)lbl3.textContent=wn>0?"WANT LIST ("+wn+")":"WANT LIST";}
 }
 function rDB(){
   var m=document.getElementById("main");if(!m)return;
