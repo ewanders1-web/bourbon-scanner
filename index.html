@@ -39,9 +39,6 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min
 .cmeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .cmeta-tag{background:var(--bg4);border:1px solid var(--gold3);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--text2)}
 .cmeta-tag span{color:var(--goldb);font-weight:600}
-.crating{display:flex;align-items:center;gap:6px;margin-top:8px}
-.stars{color:var(--gold);font-size:14px;letter-spacing:1px}
-.rating-val{font-size:12px;color:var(--text2)}
 .cactions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .abtn{padding:6px 14px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s}.abtn:active{opacity:.75}
 .abtn-add{background:rgba(31,197,90,.15);color:var(--legit);border:1px solid var(--legit)}.abtn-want{background:rgba(201,148,58,.15);color:var(--goldb);border:1px solid var(--gold2)}.abtn-del{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced)}.abtn-review{background:rgba(201,148,58,.12);color:var(--text2);border:1px solid var(--gold3)}
@@ -80,13 +77,11 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min
 .savebtn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080502;padding:12px;border:none;border-radius:30px;font-weight:700;font-size:13px;width:100%;cursor:pointer}
 .elist-item{background:var(--bg);border:1px solid var(--gold3);border-radius:8px;padding:9px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
 .edel{background:rgba(232,68,68,.12);color:var(--sourced);border:1px solid var(--sourced);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:13px}
-/* OnlyDrams-style: bottle detail modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal-sheet{background:var(--bg3);border-radius:20px 20px 0 0;border:1px solid var(--gold3);border-bottom:none;width:100%;max-width:600px;max-height:88vh;overflow-y:auto;padding:20px 18px calc(20px + var(--safe-b));animation:slideUp .25s ease-out}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal-handle{width:40px;height:4px;background:var(--gold3);border-radius:2px;margin:0 auto 16px}
-.modal-img{width:80px;height:120px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 4px 12px rgba(201,148,58,.3))}
 .modal-title{font-family:"Playfair Display",serif;font-size:20px;color:var(--goldb);text-align:center;margin-bottom:4px}
 .modal-sub{font-size:12px;color:var(--text2);text-align:center;margin-bottom:14px}
 .modal-tabs{display:flex;border-bottom:1px solid var(--gold3);margin-bottom:14px}
@@ -99,37 +94,28 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min
 .price-box{flex:1;background:var(--bg4);border:1px solid var(--gold3);border-radius:8px;padding:10px;text-align:center}
 .price-lbl{font-size:10px;color:var(--text3);margin-bottom:3px}
 .price-val{font-size:16px;font-weight:700;color:var(--goldb)}
-/* Ratings */
 .rating-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .rating-bar-label{font-size:11px;color:var(--text2);width:90px;flex-shrink:0}
 .rating-bar-track{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden}
 .rating-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--goldb));border-radius:3px;transition:width .5s}
 .rating-big{text-align:center;padding:14px 0}
 .rating-number{font-size:40px;font-weight:700;color:var(--goldb);font-family:"Playfair Display",serif}
-.rating-stars-big{font-size:22px;color:var(--gold);letter-spacing:2px;margin:4px 0}
 .rating-count{font-size:11px;color:var(--text3)}
-/* Review card */
 .review-card{background:var(--bg4);border:1px solid var(--gold3);border-radius:10px;padding:12px;margin-bottom:10px}
 .review-header{display:flex;justify-content:space-between;margin-bottom:6px}
 .review-author{font-size:12px;font-weight:600;color:var(--goldb)}
 .review-date{font-size:10px;color:var(--text3)}
-.review-stars{color:var(--gold);font-size:12px;margin-bottom:4px}
 .review-text{font-size:12px;color:var(--text2);line-height:1.5}
-/* Add review form */
 .star-input{display:flex;gap:6px;margin-bottom:10px}
 .star-btn{font-size:24px;cursor:pointer;opacity:.4;transition:opacity .15s,transform .15s}
 .star-btn.on{opacity:1}
 .star-btn:hover{transform:scale(1.15)}
-/* Collection stats bar (OnlyDrams inspired) */
 .stats-bar{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
 .stat-card{background:var(--bg3);border:1px solid var(--gold3);border-radius:10px;padding:10px 14px;text-align:center;flex-shrink:0;min-width:72px}
 .stat-num{font-size:20px;font-weight:700;color:var(--goldb);font-family:"Playfair Display",serif}
 .stat-lbl{font-size:9px;color:var(--text3);letter-spacing:.05em;margin-top:2px}
-/* Size chips */
 .size-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.size-chip{padding:4px 10px;border-radius:20px;border:1px solid var(--gold3);font-size:11px;color:var(--text2);cursor:pointer;background:transparent}
-.size-chip.sel{background:var(--gold3);color:var(--goldb);border-color:var(--gold)}
-/* Rare badge */
+.size-chip{padding:4px 10px;border-radius:20px;border:1px solid var(--gold3);font-size:11px;color:var(--text2);background:var(--gold3);color:var(--goldb);border-color:var(--gold)}
 .rare-badge{background:linear-gradient(135deg,rgba(201,148,58,.3),rgba(240,192,96,.15));border:1px solid var(--gold);color:var(--goldb);font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
 </style>
 </head>
@@ -137,10 +123,10 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min
 <div id="hdr"><div class="htitle">BOURBON TRUTH</div><div class="hsub">Distillery Transparency Database</div></div>
 <div id="main"></div>
 <div id="tabs">
-  <div class="tab active" id="t0" onclick="go(0)"><div class="ticon">📋</div><div>DATABASE</div></div>
-  <div class="tab" id="t1" onclick="go(1)"><div class="ticon">📷</div><div>SCAN</div></div>
-  <div class="tab" id="t2" onclick="go(2)"><div class="ticon">🥃</div><div>COLLECTION</div></div>
-  <div class="tab" id="t3" onclick="go(3)"><div class="ticon">⭐</div><div>WANT LIST</div></div>
+  <div class="tab active" id="t0" onclick="go(0)"><div class="ticon">&#x1F4CB;</div><div>DATABASE</div></div>
+  <div class="tab" id="t1" onclick="go(1)"><div class="ticon">&#x1F4F7;</div><div>SCAN</div></div>
+  <div class="tab" id="t2" onclick="go(2)"><div class="ticon">&#x1F943;</div><div>COLLECTION</div></div>
+  <div class="tab" id="t3" onclick="go(3)"><div class="ticon">&#x2B50;</div><div>WANT LIST</div></div>
   <div class="tab" id="t4" onclick="go(4)"><div class="ticon">+</div><div>ADMIN</div></div>
 </div>
 <script>
@@ -149,7 +135,7 @@ firebase.initializeApp(FB_CFG);
 var db=firebase.database();
 var CT=0,CF="all",OC=null,SR=false,LS=null;
 var BD={},COL={},WANT={},REVIEWS={};
-var MODAL_UPC=null,MODAL_TAB="details",MODAL_STAR=0;
+var MODAL_UPC=null,MODAL_STAR=0;
 
 db.ref("bourbons").on("value",function(s){BD=s.val()||{};if(CT===0)rDB();});
 db.ref("collection").on("value",function(s){COL=s.val()||{};if(CT===2)rCOL();else if(CT===0){var si=document.getElementById("si");rCL(si?si.value:"");}updateBadges();});
@@ -167,6 +153,17 @@ function updateBadges(){
   var cn=Object.keys(COL).length,wn=Object.keys(WANT).length;
   if(c2){var l2=c2.querySelector("div:last-child");if(l2)l2.textContent=cn>0?"COLLECTION ("+cn+")":"COLLECTION";}
   if(c3){var l3=c3.querySelector("div:last-child");if(l3)l3.textContent=wn>0?"WANT LIST ("+wn+")":"WANT LIST";}
+}
+function getAvgRating(upc){
+  var rv=REVIEWS[upc];if(!rv)return null;
+  var vals=Object.values(rv).map(function(r){return r.stars||0;}).filter(function(s){return s>0;});
+  if(!vals.length)return null;
+  return (vals.reduce(function(a,b){return a+b;},0)/vals.length).toFixed(1);
+}
+function starsHtml(rating,size){
+  var r=parseFloat(rating)||0,s="";
+  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"&#9733;":"&#9734;";}
+  return "<span style='color:var(--gold);font-size:"+(size||12)+"px;letter-spacing:1px'>"+s+"</span>";
 }
 function rDB(){
   var m=document.getElementById("main");if(!m)return;
@@ -198,8 +195,7 @@ function rFR(){
   });
 }
 function rCL(q){
-  var cl=document.getElementById("cl");if(!cl)return;
-  cl.innerHTML="";
+  var cl=document.getElementById("cl");if(!cl)return;cl.innerHTML="";
   var qL=(q||"").toLowerCase().trim();
   var items=Object.entries(BD).filter(function(e){
     var b=e[1];
@@ -207,65 +203,53 @@ function rCL(q){
   });
   if(items.length===0){
     var es=document.createElement("div");es.className="empty";
-    es.innerHTML='<div class="ei">🥃</div><div>No bourbons found</div>';
+    es.innerHTML="<div class='ei'>&#x1F943;</div><div>No bourbons found</div>";
     cl.appendChild(es);return;
   }
   items.forEach(function(e){cl.appendChild(mkCard(e[0],e[1],"db"));});
 }
-function getAvgRating(upc){
-  var rv=REVIEWS[upc];if(!rv)return null;
-  var vals=Object.values(rv).map(function(r){return r.stars||0;}).filter(function(s){return s>0;});
-  if(!vals.length)return null;
-  return (vals.reduce(function(a,b){return a+b;},0)/vals.length).toFixed(1);
-}
-function starsHtml(rating,size){
-  var r=parseFloat(rating)||0;
-  var s="";
-  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"★":"☆";}
-  return '<span style="color:var(--gold);font-size:'+(size||12)+'px;letter-spacing:1px">'+s+'</span>';
-}
 function mkCard(upc,b,ctx){
   var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
-  var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
+  var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
   var inCol=COL.hasOwnProperty(upc),inWant=WANT.hasOwnProperty(upc);
   var avg=getAvgRating(upc);
   var card=document.createElement("div");card.className="card";
   var ch=document.createElement("div");ch.className="ch";
-  var badge=document.createElement("div");badge.className="cbadge b"+sc;badge.textContent=ic;
+  var badge=document.createElement("div");badge.className="cbadge b"+sc;badge.innerHTML=ic;
   var ci=document.createElement("div");ci.className="ci";
   var cn=document.createElement("div");cn.className="cname";cn.textContent=b.name||"Unknown";
   var cd=document.createElement("div");cd.className="cdist";
-  cd.textContent=(b.distiller||"Unknown")+(b.proof?" · "+b.proof+"°":"")+(b.age?" · "+b.age+" yr":"");
-  if(avg){var rs=document.createElement("div");rs.innerHTML=starsHtml(avg,11)+' <span style="font-size:10px;color:var(--text3)">('+avg+')</span>';ci.appendChild(cn);ci.appendChild(cd);ci.appendChild(rs);}
-  else{ci.appendChild(cn);ci.appendChild(cd);}
+  cd.textContent=(b.distiller||"Unknown")+(b.proof?" \u00b7 "+b.proof+"\u00b0":"")+(b.age?" \u00b7 "+b.age+" yr":"");
+  ci.appendChild(cn);ci.appendChild(cd);
+  if(avg){var rs=document.createElement("div");rs.innerHTML=starsHtml(avg,11)+" <span style='font-size:10px;color:var(--text3)'>("+avg+")</span>";ci.appendChild(rs);}
   var pill=document.createElement("span");pill.className="pill p"+sc;pill.textContent=b.status.toUpperCase();
   ch.appendChild(badge);ch.appendChild(ci);ch.appendChild(pill);
   var cb=document.createElement("div");cb.className="cb"+(OC===upc?" open":"");
   var notesEl=document.createElement("div");notesEl.className="cnotes";notesEl.textContent=b.notes||"No additional notes.";
-  /* meta tags */
   var metaDiv=document.createElement("div");metaDiv.className="cmeta";
-  if(b.proof){var pt=document.createElement("div");pt.className="cmeta-tag";pt.innerHTML="Proof <span>"+b.proof+"°</span>";metaDiv.appendChild(pt);}
-  if(b.age){var at=document.createElement("div");at.className="cmeta-tag";at.innerHTML="Age <span>"+b.age+" yr</span>";metaDiv.appendChild(at);}
-  if(b.msrp){var mt=document.createElement("div");mt.className="cmeta-tag";mt.innerHTML="MSRP <span>$"+b.msrp+"</span>";metaDiv.appendChild(mt);}
+  if(b.proof){var pt=document.createElement("div");pt.className="cmeta-tag";pt.innerHTML="Proof <span>"+b.proof+"&#x00B0;</span>";metaDiv.appendChild(pt);}
+  if(b.age){var at2=document.createElement("div");at2.className="cmeta-tag";at2.innerHTML="Age <span>"+b.age+" yr</span>";metaDiv.appendChild(at2);}
+  if(b.msrp){var mt2=document.createElement("div");mt2.className="cmeta-tag";mt2.innerHTML="MSRP <span>$"+b.msrp+"</span>";metaDiv.appendChild(mt2);}
   if(b.type){var tt=document.createElement("div");tt.className="cmeta-tag";tt.innerHTML="<span>"+b.type+"</span>";metaDiv.appendChild(tt);}
-  if(b.rare){var rt=document.createElement("div");rt.className="rare-badge";rt.textContent="🔥 Rare";metaDiv.appendChild(rt);}
+  if(b.rare){var rt=document.createElement("div");rt.className="rare-badge";rt.textContent="&#x1F525; Rare";metaDiv.appendChild(rt);}
   var upcEl=document.createElement("div");upcEl.style.cssText="margin-top:6px;font-size:11px;color:var(--text3)";upcEl.textContent="UPC: "+upc;
   var acts=document.createElement("div");acts.className="cactions";
   if(ctx!=="col"){
     var ab=document.createElement("button");ab.className="abtn "+(inCol?"abtn-del":"abtn-add");
     ab.textContent=inCol?"Remove from Collection":"+ My Collection";
-    ab.onclick=function(e){e.stopPropagation();toggleCol(upc,b);};
+    ab.dataset.upc=upc;ab.onclick=function(e){e.stopPropagation();toggleCol(this.dataset.upc,BD[this.dataset.upc]||b);};
     acts.appendChild(ab);
   }
   if(ctx!=="want"){
     var wb=document.createElement("button");wb.className="abtn "+(inWant?"abtn-del":"abtn-want");
-    wb.textContent=inWant?"Remove from Want List":"⭐ Want List";
-    wb.onclick=function(e){e.stopPropagation();toggleWant(upc,b);};
+    wb.textContent=inWant?"Remove from Want List":"&#x2B50; Want List";
+    wb.dataset.upc=upc;wb.onclick=function(e){e.stopPropagation();toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);};
     acts.appendChild(wb);
   }
   var detBtn=document.createElement("button");detBtn.className="abtn abtn-review";
   detBtn.textContent="Details & Reviews";
-  detBtn.onclick=function(e){e.stopPropagation();openModal(upc,b);};
+  detBtn.dataset.upc=upc;
+  detBtn.onclick=function(e){e.stopPropagation();var u=this.dataset.upc;openModal(u,BD[u]||b);};
   acts.appendChild(detBtn);
   cb.appendChild(notesEl);
   if(metaDiv.children.length)cb.appendChild(metaDiv);
@@ -279,113 +263,133 @@ function mkCard(upc,b,ctx){
   return card;
 }
 
-/* ---- MODAL (OnlyDrams bottle detail sheet) ---- */
 function openModal(upc,b){
-  MODAL_UPC=upc;MODAL_TAB="details";MODAL_STAR=0;
+  MODAL_UPC=upc;MODAL_STAR=0;
   var ov=document.createElement("div");ov.className="modal-overlay";ov.id="mod-ov";
-  ov.onclick=function(e){if(e.target===ov)closeModal();};
+  ov.addEventListener("click",function(e){if(e.target===ov)closeModal();});
   var sh=document.createElement("div");sh.className="modal-sheet";sh.id="mod-sh";
-  var han=document.createElement("div");han.className="modal-handle";
+  var han=document.createElement("div");han.className="modal-handle";sh.appendChild(han);
   var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
-  var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
+  var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
   var avg=getAvgRating(upc);
   var rvCount=REVIEWS[upc]?Object.keys(REVIEWS[upc]).length:0;
-  var rareBadge=b.rare?'<div class="rare-badge" style="margin-bottom:10px">🔥 Rare / Limited</div>':'';
-  var titleHtml='<div class="modal-title">'+ic+' '+b.name+'</div>';
-  var subHtml='<div class="modal-sub">'+(b.type||"Bourbon Whiskey")+(b.distiller?" · "+(b.distiller):"")+'</div>';
-  var ratingHtml=avg?'<div style="text-align:center;margin-bottom:12px">'+starsHtml(avg,18)+' <span style="color:var(--text2);font-size:12px">'+avg+' ('+rvCount+' reviews)</span></div>':'';
-  /* sizes */
-  var sizes=b.sizes?(b.sizes+"").split(",").map(function(s){return s.trim();}).filter(Boolean):["750 mL"];
-  var sizeChips=sizes.map(function(s){return '<span class="size-chip sel">'+s+'</span>';}).join("");
-  /* tabs */
-  var tabsHtml='<div class="modal-tabs">'
-    +'<div class="modal-tab active" id="mt-details" onclick="switchModalTab('details')">Details</div>'
-    +'<div class="modal-tab" id="mt-reviews" onclick="switchModalTab('reviews')">Reviews</div>'
-    +'<div class="modal-tab" id="mt-verdict" onclick="switchModalTab('verdict')">Verdict</div>'
-    +'</div>';
-  /* details section */
-  var rows=[
-    b.distiller?["Actual Distiller",b.distiller]:null,
-    b.proof?["Proof",b.proof+"°"]:null,
-    b.age?["Age Statement",b.age+" years"]:null,
-    b.type?["Type",b.type]:null,
-    b.msrp?["MSRP","$"+b.msrp]:null,
-    b.secondary?["Secondary Market","~$"+b.secondary]:null,
-    ["Status",'<span class="pill p'+sc+'">'+b.status.toUpperCase()+'</span>'],
-  ].filter(Boolean);
-  var detailRows=rows.map(function(r){return '<div class="detail-row"><span class="detail-label">'+r[0]+'</span><span class="detail-val">'+r[1]+'</span></div>';}).join("");
-  if(b.msrp||b.secondary){
-    detailRows+='<div class="price-row">'
-      +(b.msrp?'<div class="price-box"><div class="price-lbl">MSRP</div><div class="price-val">$'+b.msrp+'</div></div>':'')
-      +(b.secondary?'<div class="price-box"><div class="price-lbl">Secondary</div><div class="price-val">~$'+b.secondary+'</div></div>':'')
-      +'</div>';
+  if(b.rare){var rb=document.createElement("div");rb.className="rare-badge";rb.style.textAlign="center";rb.textContent="&#x1F525; Rare / Limited";sh.appendChild(rb);}
+  var title=document.createElement("div");title.className="modal-title";title.innerHTML=ic+" "+b.name;sh.appendChild(title);
+  var sub=document.createElement("div");sub.className="modal-sub";sub.textContent=(b.type||"Bourbon Whiskey")+(b.distiller?" \u00b7 "+b.distiller:"");sh.appendChild(sub);
+  if(avg){
+    var ratingLine=document.createElement("div");ratingLine.style.cssText="text-align:center;margin-bottom:12px";
+    ratingLine.innerHTML=starsHtml(avg,18)+" <span style='color:var(--text2);font-size:12px'>"+avg+" ("+rvCount+" reviews)</span>";
+    sh.appendChild(ratingLine);
   }
-  if(b.notes)detailRows+='<div style="margin-top:10px;font-size:12px;color:var(--text2);line-height:1.5">'+b.notes+'</div>';
-  var detailsHtml='<div class="modal-section active" id="ms-details">'+detailRows+'<div style="margin-top:10px"><div style="font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:.05em">BOTTLE SIZE</div><div class="size-row">'+sizeChips+'</div></div></div>';
-  /* reviews section */
-  var reviewsHtml=buildReviewsSection(upc);
-  /* verdict section */
-  var verdictHtml='<div class="modal-section" id="ms-verdict">'+buildVerdict(upc,b)+'</div>';
-  /* actions */
+  /* Modal tabs */
+  var tabsDiv=document.createElement("div");tabsDiv.className="modal-tabs";
+  var tabDefs=[["details","Details"],["reviews","Reviews"],["verdict","Verdict"]];
+  tabDefs.forEach(function(td,i){
+    var mt=document.createElement("div");mt.className="modal-tab"+(i===0?" active":"");mt.id="mt-"+td[0];mt.textContent=td[1];
+    mt.dataset.tab=td[0];
+    mt.addEventListener("click",function(){switchModalTab(this.dataset.tab);});
+    tabsDiv.appendChild(mt);
+  });
+  sh.appendChild(tabsDiv);
+  /* Details section */
+  var detSec=document.createElement("div");detSec.className="modal-section active";detSec.id="ms-details";
+  var detailDefs=[[b.distiller,"Actual Distiller",b.distiller],[b.proof,"Proof",b.proof+"&#x00B0;"],[b.age,"Age Statement",b.age+" years"],[b.type,"Type",b.type],[b.msrp,"MSRP","$"+b.msrp],[b.secondary,"Secondary Market","~$"+b.secondary],["always","Status","<span class='pill p"+sc+"'>"+b.status.toUpperCase()+"</span>"]];
+  detailDefs.forEach(function(dd){
+    if(!dd[0])return;
+    var row=document.createElement("div");row.className="detail-row";
+    var lbl=document.createElement("span");lbl.className="detail-label";lbl.textContent=dd[1];
+    var val=document.createElement("span");val.className="detail-val";val.innerHTML=dd[2];
+    row.appendChild(lbl);row.appendChild(val);detSec.appendChild(row);
+  });
+  if(b.msrp||b.secondary){
+    var priceRow=document.createElement("div");priceRow.className="price-row";
+    if(b.msrp){var pb1=document.createElement("div");pb1.className="price-box";pb1.innerHTML="<div class='price-lbl'>MSRP</div><div class='price-val'>$"+b.msrp+"</div>";priceRow.appendChild(pb1);}
+    if(b.secondary){var pb2=document.createElement("div");pb2.className="price-box";pb2.innerHTML="<div class='price-lbl'>Secondary</div><div class='price-val'>~$"+b.secondary+"</div>";priceRow.appendChild(pb2);}
+    detSec.appendChild(priceRow);
+  }
+  if(b.notes){var noteP=document.createElement("div");noteP.style.cssText="margin-top:10px;font-size:12px;color:var(--text2);line-height:1.5";noteP.textContent=b.notes;detSec.appendChild(noteP);}
+  var sizeLabel=document.createElement("div");sizeLabel.style.cssText="margin-top:10px;font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:.05em";sizeLabel.textContent="BOTTLE SIZE";
+  var sizeRowEl=document.createElement("div");sizeRowEl.className="size-row";
+  var sizes=b.sizes?(b.sizes+"").split(",").map(function(s){return s.trim();}).filter(Boolean):["750 mL"];
+  sizes.forEach(function(sz){var chip=document.createElement("span");chip.className="size-chip";chip.textContent=sz;sizeRowEl.appendChild(chip);});
+  detSec.appendChild(sizeLabel);detSec.appendChild(sizeRowEl);
+  sh.appendChild(detSec);
+  /* Reviews section */
+  var rvSec=document.createElement("div");rvSec.className="modal-section";rvSec.id="ms-reviews";
+  fillReviewsSection(rvSec,upc);
+  sh.appendChild(rvSec);
+  /* Verdict section */
+  var vtSec=document.createElement("div");vtSec.className="modal-section";vtSec.id="ms-verdict";
+  vtSec.innerHTML=buildVerdict(upc,b);
+  sh.appendChild(vtSec);
+  /* Actions */
+  var actDiv=document.createElement("div");actDiv.style.cssText="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap";
   var inCol=COL.hasOwnProperty(upc),inWant=WANT.hasOwnProperty(upc);
-  var actHtml='<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">'
-    +'<button class="abtn '+(inCol?"abtn-del":"abtn-add")+'" id="mod-col-btn" onclick="toggleCol(''+upc+'',BD[''+upc+'']||{name:''+b.name+'',status:''+b.status+'',distiller:''+(b.distiller||'')+''})">'+(inCol?"Remove from Collection":"+ My Collection")+'</button>'
-    +'<button class="abtn '+(inWant?"abtn-del":"abtn-want")+'" id="mod-want-btn" onclick="toggleWant(''+upc+'',BD[''+upc+'']||{name:''+b.name+'',status:''+b.status+'',distiller:''+(b.distiller||'')+''})">'+(inWant?"Remove from Want List":"⭐ Want List")+'</button>'
-    +'</div>';
-  sh.innerHTML='';
-  sh.appendChild(han);
-  sh.innerHTML+=rareBadge+titleHtml+subHtml+ratingHtml+tabsHtml+detailsHtml+reviewsHtml+verdictHtml+actHtml;
-  ov.appendChild(sh);
-  document.body.appendChild(ov);
+  var cb2=document.createElement("button");cb2.id="mod-col-btn";cb2.className="abtn "+(inCol?"abtn-del":"abtn-add");cb2.textContent=inCol?"Remove from Collection":"+ My Collection";
+  cb2.dataset.upc=upc;cb2.addEventListener("click",function(){toggleCol(this.dataset.upc,BD[this.dataset.upc]||b);});
+  var wb2=document.createElement("button");wb2.id="mod-want-btn";wb2.className="abtn "+(inWant?"abtn-del":"abtn-want");wb2.textContent=inWant?"Remove from Want List":"&#x2B50; Want List";
+  wb2.dataset.upc=upc;wb2.addEventListener("click",function(){toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);});
+  actDiv.appendChild(cb2);actDiv.appendChild(wb2);sh.appendChild(actDiv);
+  ov.appendChild(sh);document.body.appendChild(ov);
 }
 function closeModal(){var ov=document.getElementById("mod-ov");if(ov)ov.remove();}
 function switchModalTab(tab){
-  MODAL_TAB=tab;
   ["details","reviews","verdict"].forEach(function(t){
     var mt=document.getElementById("mt-"+t),ms=document.getElementById("ms-"+t);
     if(mt)mt.classList.toggle("active",t===tab);
     if(ms)ms.classList.toggle("active",t===tab);
   });
-  if(tab==="reviews"){var rs=document.getElementById("ms-reviews");if(rs)rs.innerHTML=buildReviewsSection(MODAL_UPC);}
+  if(tab==="reviews"){var rs=document.getElementById("ms-reviews");if(rs){rs.innerHTML="";fillReviewsSection(rs,MODAL_UPC);}}
 }
-function buildReviewsSection(upc){
+function fillReviewsSection(container,upc){
   var rv=REVIEWS[upc]||{};
   var rvArr=Object.entries(rv).sort(function(a,b){return (b[1].ts||0)-(a[1].ts||0);});
   var avg=getAvgRating(upc);
-  var rvHtml='<div class="modal-section" id="ms-reviews">';
   if(avg){
     var rvCount=rvArr.length;
-    rvHtml+='<div class="rating-big"><div class="rating-number">'+avg+'</div><div class="rating-stars-big">'+starsHtml(avg,22)+'</div><div class="rating-count">'+rvCount+' rating'+(rvCount!==1?"s":"")+'</div></div>';
-    /* bar breakdown */
+    var bigRating=document.createElement("div");bigRating.className="rating-big";
+    bigRating.innerHTML="<div class='rating-number'>"+avg+"</div><div style='font-size:22px;color:var(--gold);letter-spacing:2px;margin:4px 0'>"+starsHtml(avg,22)+"</div><div class='rating-count'>"+rvCount+" rating"+(rvCount!==1?"s":"")+"</div>";
+    container.appendChild(bigRating);
     var counts=[0,0,0,0,0];
     rvArr.forEach(function(e){var s=parseInt(e[1].stars)||0;if(s>=1&&s<=5)counts[s-1]++;});
-    var barHtml='<div style="margin:10px 0 14px">';
+    var barsDiv=document.createElement("div");barsDiv.style.cssText="margin:10px 0 14px";
     [5,4,3,2,1].forEach(function(star){
       var pct=rvCount>0?Math.round(counts[star-1]/rvCount*100):0;
-      barHtml+='<div class="rating-bar-row"><div class="rating-bar-label">'+starsHtml(star,11)+' '+star+' star</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:'+pct+'%"></div></div><div style="font-size:10px;color:var(--text3);width:28px;text-align:right">'+pct+'%</div></div>';
+      var barRow=document.createElement("div");barRow.className="rating-bar-row";
+      barRow.innerHTML="<div class='rating-bar-label'>"+starsHtml(star,11)+" "+star+" star</div><div class='rating-bar-track'><div class='rating-bar-fill' style='width:"+pct+"%'></div></div><div style='font-size:10px;color:var(--text3);width:28px;text-align:right'>"+pct+"%</div>";
+      barsDiv.appendChild(barRow);
     });
-    barHtml+='</div>';
-    rvHtml+=barHtml;
+    container.appendChild(barsDiv);
   }
-  /* Add review */
-  rvHtml+='<div style="background:var(--bg4);border:1px solid var(--gold3);border-radius:10px;padding:12px;margin-bottom:12px">'
-    +'<div style="font-size:11px;font-weight:700;color:var(--goldb);margin-bottom:8px;letter-spacing:.05em">WRITE A REVIEW</div>'
-    +'<div class="star-input" id="star-row-'+upc+'">'+[1,2,3,4,5].map(function(s){return '<span class="star-btn" id="sb-'+s+'" onclick="setStar('+s+',''+upc+'')">★</span>';}).join("")+'</div>'
-    +'<textarea id="rv-text-'+upc+'" placeholder="Tasting notes, thoughts..." style="width:100%;padding:8px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:12px;outline:none;resize:vertical;min-height:54px;font-family:DM Sans,sans-serif;margin-bottom:8px"></textarea>'
-    +'<input id="rv-name-'+upc+'" type="text" placeholder="Your name (optional)" style="width:100%;padding:7px 10px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:12px;outline:none;margin-bottom:8px">'
-    +'<button class="sbtn" style="padding:9px 24px;font-size:12px" onclick="submitReview(''+upc+'')">Post Review</button>'
-    +'</div>';
-  if(rvArr.length===0){rvHtml+='<div class="empty" style="padding:20px 0"><div class="ei">💬</div><div>No reviews yet. Be the first!</div></div>';}
-  else{
+  /* Write a review form */
+  var formDiv=document.createElement("div");formDiv.style.cssText="background:var(--bg4);border:1px solid var(--gold3);border-radius:10px;padding:12px;margin-bottom:12px";
+  var formTitle=document.createElement("div");formTitle.style.cssText="font-size:11px;font-weight:700;color:var(--goldb);margin-bottom:8px;letter-spacing:.05em";formTitle.textContent="WRITE A REVIEW";formDiv.appendChild(formTitle);
+  var starRow=document.createElement("div");starRow.className="star-input";starRow.id="star-row-"+upc;
+  for(var si=1;si<=5;si++){
+    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.textContent="&#9733;";
+    sb.dataset.star=si;sb.dataset.upc=upc;
+    sb.addEventListener("click",function(){setStar(parseInt(this.dataset.star),this.dataset.upc);});
+    starRow.appendChild(sb);
+  }
+  formDiv.appendChild(starRow);
+  var rvTxt=document.createElement("textarea");rvTxt.id="rv-text-"+upc;rvTxt.placeholder="Tasting notes, thoughts...";rvTxt.style.cssText="width:100%;padding:8px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:12px;outline:none;resize:vertical;min-height:54px;font-family:DM Sans,sans-serif;margin-bottom:8px";
+  formDiv.appendChild(rvTxt);
+  var rvName=document.createElement("input");rvName.id="rv-name-"+upc;rvName.type="text";rvName.placeholder="Your name (optional)";rvName.style.cssText="width:100%;padding:7px 10px;background:var(--bg);color:var(--text);border:1px solid var(--gold3);border-radius:8px;font-size:12px;outline:none;margin-bottom:8px";
+  formDiv.appendChild(rvName);
+  var postBtn=document.createElement("button");postBtn.className="sbtn";postBtn.style.cssText="padding:9px 24px;font-size:12px";postBtn.textContent="Post Review";
+  postBtn.dataset.upc=upc;postBtn.addEventListener("click",function(){submitReview(this.dataset.upc);});
+  formDiv.appendChild(postBtn);
+  container.appendChild(formDiv);
+  if(rvArr.length===0){
+    var empty=document.createElement("div");empty.className="empty";empty.style.padding="20px 0";empty.innerHTML="<div class='ei'>&#x1F4AC;</div><div>No reviews yet. Be the first!</div>";container.appendChild(empty);
+  } else {
     rvArr.forEach(function(e){
       var r=e[1];
-      rvHtml+='<div class="review-card"><div class="review-header"><span class="review-author">'+(r.author||"Anonymous")+'</span><span class="review-date">'+(r.ts?new Date(r.ts).toLocaleDateString():"")+'</span></div>'
-        +'<div class="review-stars">'+starsHtml(r.stars,12)+'</div>'
-        +'<div class="review-text">'+(r.text||"")+'</div></div>';
+      var rc=document.createElement("div");rc.className="review-card";
+      rc.innerHTML="<div class='review-header'><span class='review-author'>"+(r.author||"Anonymous")+"</span><span class='review-date'>"+(r.ts?new Date(r.ts).toLocaleDateString():"")+"</span></div><div style='color:var(--gold);font-size:12px;margin-bottom:4px'>"+starsHtml(r.stars,12)+"</div><div class='review-text'>"+(r.text||"")+"</div>";
+      container.appendChild(rc);
     });
   }
-  rvHtml+='</div>';
-  return rvHtml;
 }
 function setStar(n,upc){
   MODAL_STAR=n;
@@ -404,40 +408,33 @@ function submitReview(upc){
 function rCOL(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
   var cnt=Object.keys(COL).length;
-  /* stats bar */
   var legCnt=0,srcCnt=0,mixCnt=0;
   Object.keys(COL).forEach(function(upc){var b=BD[upc];if(b){if(b.status==="Legit")legCnt++;else if(b.status==="Sourced")srcCnt++;else mixCnt++;}});
-  var statsHtml='<div class="stats-bar">'
-    +'<div class="stat-card"><div class="stat-num">'+cnt+'</div><div class="stat-lbl">TOTAL</div></div>'
-    +'<div class="stat-card"><div class="stat-num" style="color:var(--legit)">'+legCnt+'</div><div class="stat-lbl">LEGIT</div></div>'
-    +'<div class="stat-card"><div class="stat-num" style="color:var(--sourced)">'+srcCnt+'</div><div class="stat-lbl">SOURCED</div></div>'
-    +'<div class="stat-card"><div class="stat-num" style="color:var(--mixed)">'+mixCnt+'</div><div class="stat-lbl">MIXED</div></div>'
-    +'</div>';
   var hdr=document.createElement("div");hdr.className="sec-hdr";
   var ht=document.createElement("div");ht.className="sec-title";ht.textContent="My Collection";
   var hc=document.createElement("span");hc.className="sec-count";hc.textContent=cnt+" bottles";
-  hdr.appendChild(ht);hdr.appendChild(hc);
-  var statsEl=document.createElement("div");statsEl.innerHTML=statsHtml;
-  m.appendChild(hdr);m.appendChild(statsEl);
+  hdr.appendChild(ht);hdr.appendChild(hc);m.appendChild(hdr);
+  var statsBar=document.createElement("div");statsBar.className="stats-bar";
+  [{n:cnt,l:"TOTAL",c:"var(--goldb)"},{n:legCnt,l:"LEGIT",c:"var(--legit)"},{n:srcCnt,l:"SOURCED",c:"var(--sourced)"},{n:mixCnt,l:"MIXED",c:"var(--mixed)"}].forEach(function(s){
+    var sc=document.createElement("div");sc.className="stat-card";
+    sc.innerHTML="<div class='stat-num' style='color:"+s.c+"'>"+s.n+"</div><div class='stat-lbl'>"+s.l+"</div>";
+    statsBar.appendChild(sc);
+  });
+  m.appendChild(statsBar);
   if(cnt===0){
     var e=document.createElement("div");e.className="empty";
-    e.innerHTML='<div class="ei">🥃</div><div>No bottles in your collection yet.<br>Browse the Database<br>and tap <em>+ My Collection</em>.</div>';
+    e.innerHTML="<div class='ei'>&#x1F943;</div><div>No bottles yet.<br>Browse the Database and tap <em>+ My Collection</em>.</div>";
     m.appendChild(e);return;
   }
   Object.entries(COL).forEach(function(entry){
-    var upc=entry[0],b=BD[upc]||entry[1];
-    if(b)m.appendChild(mkCard(upc,b,"col"));
+    var upc=entry[0],b=BD[upc]||entry[1];if(b)m.appendChild(mkCard(upc,b,"col"));
   });
 }
 function toggleCol(upc,b){
   if(COL.hasOwnProperty(upc)){db.ref("collection/"+upc).remove();}
   else{db.ref("collection/"+upc).set({name:b.name,status:b.status,distiller:b.distiller||"",addedAt:Date.now()});}
   var btn=document.getElementById("mod-col-btn");
-  if(btn){
-    var will=!COL.hasOwnProperty(upc);
-    btn.className="abtn "+(will?"abtn-del":"abtn-add");
-    btn.textContent=will?"Remove from Collection":"+ My Collection";
-  }
+  if(btn){setTimeout(function(){var inC=COL.hasOwnProperty(upc);btn.className="abtn "+(inC?"abtn-del":"abtn-add");btn.textContent=inC?"Remove from Collection":"+ My Collection";},300);}
 }
 function rWANT(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
@@ -448,27 +445,21 @@ function rWANT(){
   hdr.appendChild(ht);hdr.appendChild(hc);m.appendChild(hdr);
   if(cnt===0){
     var e=document.createElement("div");e.className="empty";
-    e.innerHTML='<div class="ei">⭐</div><div>No bottles on your list yet.<br>Browse the Database and<br>tap <em>⭐ Want List</em>.</div>';
+    e.innerHTML="<div class='ei'>&#x2B50;</div><div>No bottles yet.<br>Browse and tap <em>&#x2B50; Want List</em>.</div>";
     m.appendChild(e);return;
   }
   Object.entries(WANT).forEach(function(entry){
-    var upc=entry[0],b=BD[upc]||entry[1];
-    if(b)m.appendChild(mkCard(upc,b,"want"));
+    var upc=entry[0],b=BD[upc]||entry[1];if(b)m.appendChild(mkCard(upc,b,"want"));
   });
 }
 function toggleWant(upc,b){
   if(WANT.hasOwnProperty(upc)){db.ref("watchlist/"+upc).remove();}
   else{db.ref("watchlist/"+upc).set({name:b.name,status:b.status,distiller:b.distiller||"",addedAt:Date.now()});}
   var btn=document.getElementById("mod-want-btn");
-  if(btn){
-    var will=!WANT.hasOwnProperty(upc);
-    btn.className="abtn "+(will?"abtn-del":"abtn-want");
-    btn.textContent=will?"Remove from Want List":"⭐ Want List";
-  }
+  if(btn){setTimeout(function(){var inW=WANT.hasOwnProperty(upc);btn.className="abtn "+(inW?"abtn-del":"abtn-want");btn.textContent=inW?"Remove from Want List":"&#x2B50; Want List";},300);}
 }
 function rSCAN(){
-  var m=document.getElementById("main");if(!m)return;
-  m.innerHTML="";
+  var m=document.getElementById("main");if(!m)return;m.innerHTML="";
   var w=document.createElement("div");w.className="scanwrap";
   var h=document.createElement("h2");h.style.cssText="color:var(--goldb);font-family:Playfair Display,serif;margin-bottom:5px;";h.textContent="Scan a Barcode";
   var p=document.createElement("p");p.style.cssText="color:var(--text2);font-size:12px;margin-bottom:14px;";p.textContent="Point your camera at the UPC barcode";
@@ -478,8 +469,7 @@ function rSCAN(){
   sovl.appendChild(scross);scon.appendChild(sovl);
   var btnWrap=document.createElement("div");btnWrap.style.marginTop="10px";
   var sbtn=document.createElement("button");sbtn.className="sbtn";sbtn.id="stb";sbtn.textContent="Start Scanner";
-  sbtn.onclick=function(){toggleScan();};
-  btnWrap.appendChild(sbtn);
+  sbtn.onclick=function(){toggleScan();};btnWrap.appendChild(sbtn);
   var sres=document.createElement("div");sres.id="sres";
   w.appendChild(h);w.appendChild(p);w.appendChild(scon);w.appendChild(btnWrap);w.appendChild(sres);
   m.appendChild(w);
@@ -503,70 +493,59 @@ function stopScan(){
 function buildVerdict(upc,b){
   var st=b.status,all=Object.entries(BD);
   var vi,vc,vl,vm;
-  if(st==="Legit"){vi="🏆";vc="buy";vl="BUY THIS";vm="Distilled on-site by a transparent operation. The real deal.";}
-  else if(st==="Sourced"){vi="⛔";vc="skip";vl="SKIP THIS";vm="Another distillery made this. You are paying a premium for a label.";}
-  else{vi="⚠️";vc="caution";vl="USE CAUTION";vm="Mixed or unclear sourcing. Transparency is limited.";}
-  var html='<div class="vbar '+vc+'"><div class="vicon">'+vi+'</div><div><div class="vlbl '+vc+'">'+vl+'</div><div class="vmsg">'+vm+'</div></div></div>';
+  if(st==="Legit"){vi="&#x1F3C6;";vc="buy";vl="BUY THIS";vm="Distilled on-site by a transparent operation. The real deal.";}
+  else if(st==="Sourced"){vi="&#x26D4;";vc="skip";vl="SKIP THIS";vm="Another distillery made this. You are paying a premium for a label.";}
+  else{vi="&#x26A0;&#xFE0F;";vc="caution";vl="USE CAUTION";vm="Mixed or unclear sourcing. Transparency is limited.";}
+  var html="<div class='vbar "+vc+"'><div class='vicon'>"+vi+"</div><div><div class='vlbl "+vc+"'>"+vl+"</div><div class='vmsg'>"+vm+"</div></div></div>";
   var legits=all.filter(function(e){return e[0]!==upc&&e[1].status==="Legit";});
-  if((st==="Sourced"||st==="Mixed")&&legits.length>0){
-    html+='<div class="alts"><div class="atitle">Buy These Instead</div>';
+  var altTitle=(st==="Sourced"||st==="Mixed")?"Buy These Instead":"Also Consider";
+  if(legits.length>0){
+    html+="<div class='alts'><div class='atitle'>"+altTitle+"</div>";
     legits.slice(0,4).forEach(function(e){
       var u=e[0],bb=e[1];
-      html+='<div class="acard" onclick="showAlt(''+u+'')"><div><div class="aname">'+bb.name+'</div><div class="adist">'+(bb.distiller||"")+'</div></div><span class="pill pl">LEGIT</span></div>';
+      html+="<div class='acard' data-alt='"+u+"'><div><div class='aname'>"+bb.name+"</div><div class='adist'>"+(bb.distiller||"")+"</div></div><span class='pill pl'>LEGIT</span></div>";
     });
-    html+='</div>';
-  }
-  if(st==="Legit"&&legits.length>0){
-    html+='<div class="alts"><div class="atitle">Also Consider</div>';
-    legits.slice(0,4).forEach(function(e){
-      var u=e[0],bb=e[1];
-      html+='<div class="acard" onclick="showAlt(''+u+'')"><div><div class="aname">'+bb.name+'</div><div class="adist">'+(bb.distiller||"")+'</div></div><span class="pill pl">LEGIT</span></div>';
-    });
-    html+='</div>';
+    html+="</div>";
   }
   return html;
-}
-function showAlt(upc){
-  var b=BD[upc];if(!b)return;
-  openModal(upc,b);
 }
 function doLookup(code){
   window._lsc=code;
   var rd=document.getElementById("sres");
-  if(rd){rd.innerHTML="";var rb=document.createElement("div");rb.className="rbox";rb.innerHTML='<p style="color:var(--text2)">Looking up '+code+'...</p>';rd.appendChild(rb);}
+  if(rd){rd.innerHTML="";var rb=document.createElement("div");rb.className="rbox";rb.innerHTML="<p style='color:var(--text2)'>Looking up "+code+"...</p>";rd.appendChild(rb);}
   db.ref("bourbons/"+code).once("value").then(function(snap){
-    rd=document.getElementById("sres");if(!rd)return;
-    rd.innerHTML="";
+    rd=document.getElementById("sres");if(!rd)return;rd.innerHTML="";
     if(snap.exists()){
       var b=snap.val();
       var sc=b.status==="Legit"?"l":b.status==="Sourced"?"s":"m";
-      var ic=b.status==="Legit"?"✅":b.status==="Sourced"?"🔴":"🟡";
+      var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
       var avg=getAvgRating(code);
       var rbox=document.createElement("div");rbox.className="rbox";
-      var h3=document.createElement("h3");h3.textContent=ic+" "+b.name;
+      var h3=document.createElement("h3");h3.innerHTML=ic+" "+b.name;
       var dist=document.createElement("p");dist.style.cssText="color:var(--text2);font-size:12px;margin-bottom:6px;";dist.textContent="Distiller: "+(b.distiller||"Unknown");
-      var pill=document.createElement("span");pill.className="pill p"+sc;pill.textContent=b.status.toUpperCase();
+      var pill2=document.createElement("span");pill2.className="pill p"+sc;pill2.textContent=b.status.toUpperCase();
       var hr=document.createElement("hr");hr.style.cssText="border:none;border-top:1px solid var(--gold3);margin:12px 0;";
-      rbox.appendChild(h3);rbox.appendChild(dist);rbox.appendChild(pill);
-      if(b.proof){var pp=document.createElement("p");pp.style.cssText="margin-top:4px;font-size:12px;color:var(--text2);";pp.textContent="Proof: "+b.proof+"° · Age: "+(b.age||"NAS");rbox.appendChild(pp);}
-      if(avg){var rar=document.createElement("div");rar.style.marginTop="6px";rar.innerHTML=starsHtml(avg,14)+' <span style="font-size:11px;color:var(--text3)">'+avg+'</span>';rbox.appendChild(rar);}
+      rbox.appendChild(h3);rbox.appendChild(dist);rbox.appendChild(pill2);
+      if(b.proof){var pp=document.createElement("p");pp.style.cssText="margin-top:4px;font-size:12px;color:var(--text2);";pp.textContent="Proof: "+b.proof+"\u00B0 \u00b7 Age: "+(b.age||"NAS");rbox.appendChild(pp);}
+      if(avg){var rar=document.createElement("div");rar.style.marginTop="6px";rar.innerHTML=starsHtml(avg,14)+" <span style='font-size:11px;color:var(--text3)'>"+avg+"</span>";rbox.appendChild(rar);}
       if(b.notes){var np=document.createElement("p");np.style.cssText="margin-top:8px;font-size:12px;color:var(--text2);";np.textContent=b.notes;rbox.appendChild(np);}
       var upcP=document.createElement("p");upcP.style.cssText="margin-top:5px;font-size:10px;color:var(--text3);";upcP.textContent="UPC: "+code;rbox.appendChild(upcP);
       rbox.appendChild(hr);
-      var vDiv=document.createElement("div");vDiv.innerHTML=buildVerdict(code,b);rbox.appendChild(vDiv);
+      var vDiv=document.createElement("div");vDiv.innerHTML=buildVerdict(code,b);
+      vDiv.addEventListener("click",function(e){var ac=e.target.closest(".acard");if(ac&&ac.dataset.alt){var u=ac.dataset.alt;openModal(u,BD[u]||{name:u,status:"Legit",distiller:""});}});
+      rbox.appendChild(vDiv);
       var actDiv=document.createElement("div");actDiv.style.cssText="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;";
       var inC=COL.hasOwnProperty(code),inW=WANT.hasOwnProperty(code);
       var colBtn=document.createElement("button");colBtn.className="abtn "+(inC?"abtn-del":"abtn-add");colBtn.textContent=inC?"Remove from Collection":"+ My Collection";
-      colBtn.onclick=function(){toggleCol(code,b);};
-      var wantBtn=document.createElement("button");wantBtn.className="abtn "+(inW?"abtn-del":"abtn-want");wantBtn.textContent=inW?"Remove from Want List":"⭐ Want List";
-      wantBtn.onclick=function(){toggleWant(code,b);};
-      var detBtn=document.createElement("button");detBtn.className="abtn abtn-review";detBtn.textContent="Details & Reviews";
-      detBtn.onclick=function(){openModal(code,b);};
-      actDiv.appendChild(colBtn);actDiv.appendChild(wantBtn);actDiv.appendChild(detBtn);rbox.appendChild(actDiv);
+      colBtn.dataset.upc=code;colBtn.addEventListener("click",function(){toggleCol(this.dataset.upc,BD[this.dataset.upc]||b);});
+      var wantBtn=document.createElement("button");wantBtn.className="abtn "+(inW?"abtn-del":"abtn-want");wantBtn.textContent=inW?"Remove from Want List":"&#x2B50; Want List";
+      wantBtn.dataset.upc=code;wantBtn.addEventListener("click",function(){toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);});
+      var detBtn2=document.createElement("button");detBtn2.className="abtn abtn-review";detBtn2.textContent="Details & Reviews";
+      detBtn2.dataset.upc=code;detBtn2.addEventListener("click",function(){openModal(this.dataset.upc,BD[this.dataset.upc]||b);});
+      actDiv.appendChild(colBtn);actDiv.appendChild(wantBtn);actDiv.appendChild(detBtn2);rbox.appendChild(actDiv);
       var scanAgain=document.createElement("div");scanAgain.style.cssText="text-align:center;margin-top:14px;";
       var sa=document.createElement("button");sa.className="sbtn";sa.style.cssText="padding:9px 24px;";sa.textContent="Scan Another";sa.onclick=function(){toggleScan();};
-      scanAgain.appendChild(sa);rbox.appendChild(scanAgain);
-      rd.appendChild(rbox);
+      scanAgain.appendChild(sa);rbox.appendChild(scanAgain);rd.appendChild(rbox);
     } else {
       var rbox2=document.createElement("div");rbox2.className="rbox";
       var h3b=document.createElement("h3");h3b.textContent="Not in Database";rbox2.appendChild(h3b);
@@ -574,35 +553,33 @@ function doLookup(code){
       var addBtn=document.createElement("button");addBtn.className="sbtn";addBtn.style.cssText="padding:9px 22px;display:block;margin:0 auto 8px;";addBtn.textContent="Add This Bourbon";
       addBtn.onclick=function(){openAdmin(code);};rbox2.appendChild(addBtn);
       var againBtn=document.createElement("button");againBtn.className="sbtn";againBtn.style.cssText="padding:9px 22px;background:transparent;color:var(--text2);border:1px solid var(--gold3);display:block;margin:0 auto;";againBtn.textContent="Scan Again";
-      againBtn.onclick=function(){toggleScan();};rbox2.appendChild(againBtn);
-      rd.appendChild(rbox2);
+      againBtn.onclick=function(){toggleScan();};rbox2.appendChild(againBtn);rd.appendChild(rbox2);
     }
   }).catch(function(err){
     var rd2=document.getElementById("sres");
-    if(rd2){rd2.innerHTML="";var eb=document.createElement("div");eb.className="rbox";eb.innerHTML='<p style="color:var(--sourced)">Error: '+err.message+'</p>';rd2.appendChild(eb);}
+    if(rd2){rd2.innerHTML="";var eb=document.createElement("div");eb.className="rbox";eb.innerHTML="<p style='color:var(--sourced)'>Error: "+err.message+"</p>";rd2.appendChild(eb);}
   });
 }
 function openAdmin(code){go(4);setTimeout(function(){var f=document.getElementById("nU");if(f){f.value=code||"";f.focus();}},150);}
 function rADMIN(){
   var m=document.getElementById("main");if(!m)return;m.innerHTML="";
   var p=document.createElement("div");p.className="apanel";
-  p.innerHTML='<h3>Add New Bourbon</h3>'
-    +'<input type="text" id="nU" placeholder="Barcode / UPC" autocomplete="off">'
-    +'<input type="text" id="nN" placeholder="Bourbon Name" autocomplete="off">'
-    +'<select id="nST"><option value="Legit">Legit (Distilled on-site)</option><option value="Sourced">Sourced (MGP / Other)</option><option value="Mixed">Mixed / Unknown</option></select>'
-    +'<input type="text" id="nD" placeholder="Actual Distiller" autocomplete="off">'
-    +'<input type="text" id="nTP" placeholder="Type (e.g. Bourbon Whiskey)" autocomplete="off">'
-    +'<input type="text" id="nPF" placeholder="Proof (e.g. 90)" autocomplete="off">'
-    +'<input type="text" id="nAG" placeholder="Age Statement (years)" autocomplete="off">'
-    +'<input type="text" id="nMS" placeholder="MSRP ($)" autocomplete="off">'
-    +'<input type="text" id="nSC" placeholder="Secondary Market Price ($)" autocomplete="off">'
-    +'<input type="text" id="nSZ" placeholder="Sizes (e.g. 750 mL, 1 L)" autocomplete="off">'
-    +'<label style="display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:13px;color:var(--text2);cursor:pointer"><input type="checkbox" id="nRR" style="width:auto;margin:0"> Mark as Rare/Limited</label>'
-    +'<textarea id="nNotes" placeholder="Notes (optional)"></textarea>'
-    +'<button class="savebtn" onclick="saveToDB()">SAVE TO CLOUD</button>';
+  p.innerHTML="<h3>Add New Bourbon</h3>"
+    +"<input type='text' id='nU' placeholder='Barcode / UPC' autocomplete='off'>"
+    +"<input type='text' id='nN' placeholder='Bourbon Name' autocomplete='off'>"
+    +"<select id='nST'><option value='Legit'>Legit (Distilled on-site)</option><option value='Sourced'>Sourced (MGP / Other)</option><option value='Mixed'>Mixed / Unknown</option></select>"
+    +"<input type='text' id='nD' placeholder='Actual Distiller' autocomplete='off'>"
+    +"<input type='text' id='nTP' placeholder='Type (e.g. Bourbon Whiskey)' autocomplete='off'>"
+    +"<input type='text' id='nPF' placeholder='Proof (e.g. 90)' autocomplete='off'>"
+    +"<input type='text' id='nAG' placeholder='Age Statement (years)' autocomplete='off'>"
+    +"<input type='text' id='nMS' placeholder='MSRP ($)' autocomplete='off'>"
+    +"<input type='text' id='nSC' placeholder='Secondary Market Price ($)' autocomplete='off'>"
+    +"<input type='text' id='nSZ' placeholder='Sizes (e.g. 750 mL, 1 L)' autocomplete='off'>"
+    +"<label style='display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:13px;color:var(--text2);cursor:pointer'><input type='checkbox' id='nRR' style='width:auto;margin:0'> Mark as Rare/Limited</label>"
+    +"<textarea id='nNotes' placeholder='Notes (optional)'></textarea>"
+    +"<button class='savebtn' onclick='saveToDB()'>SAVE TO CLOUD</button>";
   var al=document.createElement("div");al.id="al";
-  m.appendChild(p);m.appendChild(al);
-  rAL();
+  m.appendChild(p);m.appendChild(al);rAL();
 }
 function rAL(){
   var al=document.getElementById("al");if(!al)return;al.innerHTML="";
@@ -618,36 +595,38 @@ function rAL(){
     var upci=document.createElement("div");upci.style.cssText="font-size:10px;color:var(--text3);margin-top:2px;";
     var sp=document.createElement("span");sp.className="pill p"+sc;sp.style.cssText="font-size:8px;padding:1px 6px;";sp.textContent=b.status;
     var meta=document.createElement("span");meta.style.cssText="font-size:9px;color:var(--text3);margin-left:4px;";
-    meta.textContent=(b.proof?b.proof+"° ":"")+(b.age?b.age+"yr ":"")+(b.msrp?"$"+b.msrp:"");
+    meta.textContent=(b.proof?b.proof+"\u00B0 ":"")+(b.age?b.age+"yr ":"")+(b.msrp?"$"+b.msrp:"");
     upci.textContent=upc+" ";upci.appendChild(sp);upci.appendChild(meta);
     info.appendChild(nm);info.appendChild(upci);
     var del=document.createElement("button");del.className="edel";del.textContent="Del";
-    del.onclick=function(){delEntry(upc);};
-    row.appendChild(info);row.appendChild(del);
-    al.appendChild(row);
+    del.dataset.upc=upc;del.onclick=function(){delEntry(this.dataset.upc);};
+    row.appendChild(info);row.appendChild(del);al.appendChild(row);
   });
 }
 function saveToDB(){
-  var upc=document.getElementById("nU").value.trim();
-  var name=document.getElementById("nN").value.trim();
-  var status=document.getElementById("nST").value;
-  var dist=document.getElementById("nD").value.trim();
-  var type=document.getElementById("nTP").value.trim();
-  var proof=document.getElementById("nPF").value.trim();
-  var age=document.getElementById("nAG").value.trim();
-  var msrp=document.getElementById("nMS").value.trim();
-  var secondary=document.getElementById("nSC").value.trim();
-  var sizes=document.getElementById("nSZ").value.trim();
-  var rare=document.getElementById("nRR").checked;
-  var notes=document.getElementById("nNotes").value.trim();
+  var upc=(document.getElementById("nU")||{}).value||"";upc=upc.trim();
+  var name=(document.getElementById("nN")||{}).value||"";name=name.trim();
+  var status=(document.getElementById("nST")||{}).value||"Legit";
+  var dist=((document.getElementById("nD")||{}).value||"").trim();
+  var type=((document.getElementById("nTP")||{}).value||"").trim();
+  var proof=((document.getElementById("nPF")||{}).value||"").trim();
+  var age=((document.getElementById("nAG")||{}).value||"").trim();
+  var msrp=((document.getElementById("nMS")||{}).value||"").trim();
+  var secondary=((document.getElementById("nSC")||{}).value||"").trim();
+  var sizes=((document.getElementById("nSZ")||{}).value||"").trim();
+  var rare=(document.getElementById("nRR")||{}).checked||false;
+  var notes=((document.getElementById("nNotes")||{}).value||"").trim();
   if(!upc||!name){alert("UPC and Name are required.");return;}
   var data={name:name,status:status,distiller:dist,notes:notes,timestamp:Date.now()};
   if(type)data.type=type;if(proof)data.proof=proof;if(age)data.age=age;
   if(msrp)data.msrp=msrp;if(secondary)data.secondary=secondary;
   if(sizes)data.sizes=sizes;if(rare)data.rare=true;
   db.ref("bourbons/"+upc).set(data)
-    .then(function(){alert("Saved!");["nU","nN","nD","nTP","nPF","nAG","nMS","nSC","nSZ","nNotes"].forEach(function(id){var f=document.getElementById(id);if(f)f.value="";});var r=document.getElementById("nRR");if(r)r.checked=false;rAL();})
-    .catch(function(e){alert("Error: "+e.message);});
+    .then(function(){
+      alert("Saved!");
+      ["nU","nN","nD","nTP","nPF","nAG","nMS","nSC","nSZ","nNotes"].forEach(function(id){var f=document.getElementById(id);if(f)f.value="";});
+      var r=document.getElementById("nRR");if(r)r.checked=false;rAL();
+    }).catch(function(e){alert("Error: "+e.message);});
 }
 function delEntry(upc){
   var nm=BD[upc]&&BD[upc].name?BD[upc].name:upc;
