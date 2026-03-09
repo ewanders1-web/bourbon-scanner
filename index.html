@@ -231,7 +231,7 @@ function mkCard(upc,b,ctx){
   if(b.age){var at2=document.createElement("div");at2.className="cmeta-tag";at2.innerHTML="Age <span>"+b.age+" yr</span>";metaDiv.appendChild(at2);}
   if(b.msrp){var mt2=document.createElement("div");mt2.className="cmeta-tag";mt2.innerHTML="MSRP <span>$"+b.msrp+"</span>";metaDiv.appendChild(mt2);}
   if(b.type){var tt=document.createElement("div");tt.className="cmeta-tag";tt.innerHTML="<span>"+b.type+"</span>";metaDiv.appendChild(tt);}
-  if(b.rare){var rt=document.createElement("div");rt.className="rare-badge";rt.textContent="&#x1F525; Rare";metaDiv.appendChild(rt);}
+  if(b.rare){var rt=document.createElement("div");rt.className="rare-badge";rt.innerHTML="&#x1F525; Rare";metaDiv.appendChild(rt);}
   var upcEl=document.createElement("div");upcEl.style.cssText="margin-top:6px;font-size:11px;color:var(--text3)";upcEl.textContent="UPC: "+upc;
   var acts=document.createElement("div");acts.className="cactions";
   if(ctx!=="col"){
@@ -242,7 +242,7 @@ function mkCard(upc,b,ctx){
   }
   if(ctx!=="want"){
     var wb=document.createElement("button");wb.className="abtn "+(inWant?"abtn-del":"abtn-want");
-    wb.textContent=inWant?"Remove from Want List":"&#x2B50; Want List";
+    wb.innerHTML=inWant?"Remove from Want List":"&#x2B50; Want List";
     wb.dataset.upc=upc;wb.onclick=function(e){e.stopPropagation();toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);};
     acts.appendChild(wb);
   }
@@ -273,7 +273,7 @@ function openModal(upc,b){
   var ic=b.status==="Legit"?"&#x2705;":b.status==="Sourced"?"&#x1F534;":"&#x1F7E1;";
   var avg=getAvgRating(upc);
   var rvCount=REVIEWS[upc]?Object.keys(REVIEWS[upc]).length:0;
-  if(b.rare){var rb=document.createElement("div");rb.className="rare-badge";rb.style.textAlign="center";rb.textContent="&#x1F525; Rare / Limited";sh.appendChild(rb);}
+  if(b.rare){var rb=document.createElement("div");rb.className="rare-badge";rb.style.textAlign="center";rb.innerHTML="&#x1F525; Rare / Limited";sh.appendChild(rb);}
   var title=document.createElement("div");title.className="modal-title";title.innerHTML=ic+" "+b.name;sh.appendChild(title);
   var sub=document.createElement("div");sub.className="modal-sub";sub.textContent=(b.type||"Bourbon Whiskey")+(b.distiller?" \u00b7 "+b.distiller:"");sh.appendChild(sub);
   if(avg){
@@ -327,7 +327,7 @@ function openModal(upc,b){
   var inCol=COL.hasOwnProperty(upc),inWant=WANT.hasOwnProperty(upc);
   var cb2=document.createElement("button");cb2.id="mod-col-btn";cb2.className="abtn "+(inCol?"abtn-del":"abtn-add");cb2.textContent=inCol?"Remove from Collection":"+ My Collection";
   cb2.dataset.upc=upc;cb2.addEventListener("click",function(){toggleCol(this.dataset.upc,BD[this.dataset.upc]||b);});
-  var wb2=document.createElement("button");wb2.id="mod-want-btn";wb2.className="abtn "+(inWant?"abtn-del":"abtn-want");wb2.textContent=inWant?"Remove from Want List":"&#x2B50; Want List";
+  var wb2=document.createElement("button");wb2.id="mod-want-btn";wb2.className="abtn "+(inWant?"abtn-del":"abtn-want");wb2.innerHTML=inWant?"Remove from Want List":"&#x2B50; Want List";
   wb2.dataset.upc=upc;wb2.addEventListener("click",function(){toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);});
   actDiv.appendChild(cb2);actDiv.appendChild(wb2);sh.appendChild(actDiv);
   ov.appendChild(sh);document.body.appendChild(ov);
@@ -366,7 +366,7 @@ function fillReviewsSection(container,upc){
   var formTitle=document.createElement("div");formTitle.style.cssText="font-size:11px;font-weight:700;color:var(--goldb);margin-bottom:8px;letter-spacing:.05em";formTitle.textContent="WRITE A REVIEW";formDiv.appendChild(formTitle);
   var starRow=document.createElement("div");starRow.className="star-input";starRow.id="star-row-"+upc;
   for(var si=1;si<=5;si++){
-    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.textContent="&#9733;";
+    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.innerHTML="&#9733;";
     sb.dataset.star=si;sb.dataset.upc=upc;
     sb.addEventListener("click",function(){setStar(parseInt(this.dataset.star),this.dataset.upc);});
     starRow.appendChild(sb);
@@ -423,7 +423,7 @@ function rCOL(){
   m.appendChild(statsBar);
   if(cnt===0){
     var e=document.createElement("div");e.className="empty";
-    e.innerHTML="<div class='ei'>&#x1F943;</div><div>No bottles yet.<br>Browse the Database and tap <em>+ My Collection</em>.</div>";
+    e.innerHTML="<div class='ei'>🥃</div><div>No bottles yet.<br>Browse the Database and tap <em>+ My Collection</em>.</div>";
     m.appendChild(e);return;
   }
   Object.entries(COL).forEach(function(entry){
@@ -538,7 +538,7 @@ function doLookup(code){
       var inC=COL.hasOwnProperty(code),inW=WANT.hasOwnProperty(code);
       var colBtn=document.createElement("button");colBtn.className="abtn "+(inC?"abtn-del":"abtn-add");colBtn.textContent=inC?"Remove from Collection":"+ My Collection";
       colBtn.dataset.upc=code;colBtn.addEventListener("click",function(){toggleCol(this.dataset.upc,BD[this.dataset.upc]||b);});
-      var wantBtn=document.createElement("button");wantBtn.className="abtn "+(inW?"abtn-del":"abtn-want");wantBtn.textContent=inW?"Remove from Want List":"&#x2B50; Want List";
+      var wantBtn=document.createElement("button");wantBtn.className="abtn "+(inW?"abtn-del":"abtn-want");wantBtn.innerHTML=inW?"Remove from Want List":"&#x2B50; Want List";
       wantBtn.dataset.upc=code;wantBtn.addEventListener("click",function(){toggleWant(this.dataset.upc,BD[this.dataset.upc]||b);});
       var detBtn2=document.createElement("button");detBtn2.className="abtn abtn-review";detBtn2.textContent="Details & Reviews";
       detBtn2.dataset.upc=code;detBtn2.addEventListener("click",function(){openModal(this.dataset.upc,BD[this.dataset.upc]||b);});
