@@ -162,7 +162,7 @@ function getAvgRating(upc){
 }
 function starsHtml(rating,size){
   var r=parseFloat(rating)||0,s="";
-  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"&#9733;":"&#9734;";}
+  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"★":"☆";}
   return "<span style='color:var(--gold);font-size:"+(size||12)+"px;letter-spacing:1px'>"+s+"</span>";
 }
 function rDB(){
@@ -366,7 +366,7 @@ function fillReviewsSection(container,upc){
   var formTitle=document.createElement("div");formTitle.style.cssText="font-size:11px;font-weight:700;color:var(--goldb);margin-bottom:8px;letter-spacing:.05em";formTitle.textContent="WRITE A REVIEW";formDiv.appendChild(formTitle);
   var starRow=document.createElement("div");starRow.className="star-input";starRow.id="star-row-"+upc;
   for(var si=1;si<=5;si++){
-    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.innerHTML="&#9733;";
+    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.innerHTML="★";
     sb.dataset.star=si;sb.dataset.upc=upc;
     sb.addEventListener("click",function(){setStar(parseInt(this.dataset.star),this.dataset.upc);});
     starRow.appendChild(sb);
