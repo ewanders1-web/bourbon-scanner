@@ -178,9 +178,17 @@ function rDB(){
   scanBtn.className="scanbtn-sm";scanBtn.textContent="Scan";
   scanBtn.onclick=function(){go(1);};
   sr.appendChild(inp);sr.appendChild(scanBtn);
+  // Gemini AI UPC lookup row
+  var gRow=document.createElement("div");gRow.style.cssText="display:flex;gap:8px;margin-top:8px;";
+  var gInp=document.createElement("input");gInp.type="text";gInp.id="gDbInp";gInp.className="sinput";gInp.style.cssText="flex:1;";gInp.placeholder="\uD83E\uDD16 Enter UPC for Gemini AI lookup...";gInp.autocomplete="off";gInp.spellcheck=false;
+  var gBtn=document.createElement("button");gBtn.className="scanbtn-sm";gBtn.style.cssText="background:rgba(66,133,244,.18);border:1px solid rgba(66,133,244,.45);color:#4285f4;white-space:nowrap;padding:0 12px;";gBtn.textContent="\u2728 Gemini";
+  function doDbGemini(){var v=document.getElementById("gDbInp").value.trim();if(!v){gInp.focus();return;}go(1);setTimeout(function(){var rd=document.getElementById("sres");if(rd)doGeminiLookup(v,rd);},150);}
+  gBtn.onclick=doDbGemini;
+  gInp.addEventListener("keydown",function(e){if(e.key==="Enter")doDbGemini();});
+  gRow.appendChild(gInp);gRow.appendChild(gBtn);
   var fr=document.createElement("div");fr.className="frow";fr.id="fr";
   var cl=document.createElement("div");cl.id="cl";
-  m.appendChild(sr);m.appendChild(fr);m.appendChild(cl);
+  m.appendChild(sr);m.appendChild(gRow);m.appendChild(fr);m.appendChild(cl);
   rFR();rCL(q);
   inp.addEventListener("input",function(){rCL(this.value);});
   if(q)inp.focus();
@@ -471,7 +479,18 @@ function rSCAN(){
   var sbtn=document.createElement("button");sbtn.className="sbtn";sbtn.id="stb";sbtn.textContent="Start Scanner";
   sbtn.onclick=function(){toggleScan();};btnWrap.appendChild(sbtn);
   var sres=document.createElement("div");sres.id="sres";
-  w.appendChild(h);w.appendChild(p);w.appendChild(scon);w.appendChild(btnWrap);w.appendChild(sres);
+  // "If not this then that" - manual UPC alt lookup
+  var altWrap=document.createElement("div");altWrap.style.cssText="margin-top:16px;padding:12px;background:rgba(255,255,255,.04);border:1px solid var(--gold3);border-radius:10px;";
+  var altLbl=document.createElement("p");altLbl.style.cssText="color:var(--text2);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;";altLbl.textContent="If not scanning \u2014 enter manually";
+  var altRow=document.createElement("div");altRow.style.cssText="display:flex;gap:8px;";
+  var altInp=document.createElement("input");altInp.type="text";altInp.id="altUpcInp";altInp.className="sinput";altInp.style.cssText="flex:1;";altInp.placeholder="Enter UPC or barcode...";altInp.autocomplete="off";altInp.autocorrect="off";altInp.spellcheck=false;
+  var altBtn=document.createElement("button");altBtn.className="sbtn";altBtn.style.cssText="padding:0 16px;";altBtn.textContent="Look Up";
+  function doAltLookup(){var v=document.getElementById("altUpcInp").value.trim();if(!v){altInp.focus();return;}stopScan();doLookup(v);}
+  altBtn.onclick=doAltLookup;
+  altInp.addEventListener("keydown",function(e){if(e.key==="Enter")doAltLookup();});
+  altRow.appendChild(altInp);altRow.appendChild(altBtn);
+  altWrap.appendChild(altLbl);altWrap.appendChild(altRow);
+  w.appendChild(h);w.appendChild(p);w.appendChild(scon);w.appendChild(btnWrap);w.appendChild(altWrap);w.appendChild(sres);
   m.appendChild(w);
 }
 function toggleScan(){if(SR)stopScan();else startScan();}
