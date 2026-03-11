@@ -549,7 +549,7 @@ function doLookup(code){
     } else {
         // Not found locally — use Gemini AI real-time lookup
         doGeminiLookup(code, rd);
-    }}
+    }
   }).catch(function(err){
     var rd2=document.getElementById("sres");
     if(rd2){rd2.innerHTML="";var eb=document.createElement("div");eb.className="rbox";eb.innerHTML="<p style='color:var(--sourced)'>Error: "+err.message+"</p>";rd2.appendChild(eb);}
