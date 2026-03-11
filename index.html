@@ -162,7 +162,7 @@ function getAvgRating(upc){
 }
 function starsHtml(rating,size){
   var r=parseFloat(rating)||0,s="";
-  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"★":"☆";}
+  for(var i=1;i<=5;i++){s+=i<=Math.round(r)?"â":"â";}
   return "<span style='color:var(--gold);font-size:"+(size||12)+"px;letter-spacing:1px'>"+s+"</span>";
 }
 function rDB(){
@@ -366,7 +366,7 @@ function fillReviewsSection(container,upc){
   var formTitle=document.createElement("div");formTitle.style.cssText="font-size:11px;font-weight:700;color:var(--goldb);margin-bottom:8px;letter-spacing:.05em";formTitle.textContent="WRITE A REVIEW";formDiv.appendChild(formTitle);
   var starRow=document.createElement("div");starRow.className="star-input";starRow.id="star-row-"+upc;
   for(var si=1;si<=5;si++){
-    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.innerHTML="★";
+    var sb=document.createElement("span");sb.className="star-btn";sb.id="sb-"+si;sb.innerHTML="â";
     sb.dataset.star=si;sb.dataset.upc=upc;
     sb.addEventListener("click",function(){setStar(parseInt(this.dataset.star),this.dataset.upc);});
     starRow.appendChild(sb);
@@ -406,7 +406,7 @@ function submitReview(upc){
 }
 
 function rCOL(){
-  var m=document.getElementById("main");if(!m)return;m.innerHTML="";
+  var m=document.getElementById("main");if(!m)return;m.innerHTML=""; var sb=document.createElement("button");sb.className="scanbtn-sm";sb.style.cssText="margin-bottom:12px;width:100%;padding:11px 14px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;";sb.innerHTML="\uD83D\uDCF7 Scan to Add to Collection";sb.onclick=function(){go(1);};m.appendChild(sb);
   var cnt=Object.keys(COL).length;
   var legCnt=0,srcCnt=0,mixCnt=0;
   Object.keys(COL).forEach(function(upc){var b=BD[upc];if(b){if(b.status==="Legit")legCnt++;else if(b.status==="Sourced")srcCnt++;else mixCnt++;}});
@@ -423,7 +423,7 @@ function rCOL(){
   m.appendChild(statsBar);
   if(cnt===0){
     var e=document.createElement("div");e.className="empty";
-    e.innerHTML="<div class='ei'>🥃</div><div>No bottles yet.<br>Browse the Database and tap <em>+ My Collection</em>.</div>";
+    e.innerHTML="<div class='ei'>ð¥</div><div>No bottles yet.<br>Browse the Database and tap <em>+ My Collection</em>.</div>";
     m.appendChild(e);return;
   }
   Object.entries(COL).forEach(function(entry){
@@ -547,14 +547,9 @@ function doLookup(code){
       var sa=document.createElement("button");sa.className="sbtn";sa.style.cssText="padding:9px 24px;";sa.textContent="Scan Another";sa.onclick=function(){toggleScan();};
       scanAgain.appendChild(sa);rbox.appendChild(scanAgain);rd.appendChild(rbox);
     } else {
-      var rbox2=document.createElement("div");rbox2.className="rbox";
-      var h3b=document.createElement("h3");h3b.textContent="Not in Database";rbox2.appendChild(h3b);
-      var p2=document.createElement("p");p2.style.cssText="color:var(--text2);font-size:12px;margin-bottom:10px;";p2.textContent="UPC "+code+" not found. Want to add it?";rbox2.appendChild(p2);
-      var addBtn=document.createElement("button");addBtn.className="sbtn";addBtn.style.cssText="padding:9px 22px;display:block;margin:0 auto 8px;";addBtn.textContent="Add This Bourbon";
-      addBtn.onclick=function(){openAdmin(code);};rbox2.appendChild(addBtn);
-      var againBtn=document.createElement("button");againBtn.className="sbtn";againBtn.style.cssText="padding:9px 22px;background:transparent;color:var(--text2);border:1px solid var(--gold3);display:block;margin:0 auto;";againBtn.textContent="Scan Again";
-      againBtn.onclick=function(){toggleScan();};rbox2.appendChild(againBtn);rd.appendChild(rbox2);
-    }
+        // Not found locally — use Gemini AI real-time lookup
+        doGeminiLookup(code, rd);
+    }}
   }).catch(function(err){
     var rd2=document.getElementById("sres");
     if(rd2){rd2.innerHTML="";var eb=document.createElement("div");eb.className="rbox";eb.innerHTML="<p style='color:var(--sourced)'>Error: "+err.message+"</p>";rd2.appendChild(eb);}
@@ -633,7 +628,214 @@ function delEntry(upc){
   if(!confirm("Delete "+nm+"?"))return;
   db.ref("bourbons/"+upc).remove().then(function(){rAL();});
 }
+
+// ==========================================
+// GOOGLE / GEMINI REAL-TIME BOURBON LOOKUP
+// ==========================================
+// API Keys - update these if you have your own
+var GEMINI_API_KEY = "AIzaSyC9bZDV4JTBm8MBJJKYAz1qHXGQl0mE5Xo"; // placeholder - set your own
+var GOOGLE_CSE_ID = "";  // optional: Google Custom Search Engine ID
+var GOOGLE_API_KEY = ""; // optional: Google API key for CSE
+
+function doGeminiLookup(code, rd) {
+  if (!rd) return;
+  rd.innerHTML = "";
+  var rbox = document.createElement("div");
+  rbox.className = "rbox";
+  rbox.innerHTML = '<p style="color:var(--gold)">\uD83E\uDD16 Searching Gemini AI for UPC ' + code + '...</p><p style="color:var(--text2);font-size:11px;margin-top:6px">Looking up real-time bourbon info...</p>';
+  rd.appendChild(rbox);
+
+  // Build Gemini prompt
+  var prompt = "Look up bourbon whiskey UPC barcode: " + code + ". Return ONLY a JSON object with these fields: name (full bourbon name), distiller (who actually distills it, not just the brand), status (one of: Legit, Sourced, Mixed - Legit=distilled on-site by brand, Sourced=made by another distillery like MGP, Mixed=unclear), proof (number), age (age statement in years or null), type (e.g. Bourbon Whiskey, Straight Bourbon), msrp (retail price in USD, number only), notes (1-2 sentences about sourcing transparency). If you cannot identify the product, return {error: true}. Return ONLY valid JSON, no markdown.";
+
+  var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + GEMINI_API_KEY;
+
+  fetch(url, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      contents: [{parts: [{text: prompt}]}],
+      generationConfig: {temperature: 0.1, maxOutputTokens: 512}
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : null;
+    if (!text) throw new Error("No response from Gemini");
+    // Clean the text - remove markdown code blocks if present
+    text = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+    var b;
+    try { b = JSON.parse(text); } catch(e) { throw new Error("Could not parse Gemini response: " + text.substring(0,100)); }
+    if (b.error) throw new Error("Bourbon not identified by Gemini");
+    showGeminiResult(code, b, rd);
+  })
+  .catch(function(err) {
+    // Fallback: show Google search link
+    showGoogleFallback(code, rd, err.message);
+  });
+}
+
+function showGeminiResult(code, b, rd) {
+  if (!rd) return;
+  rd.innerHTML = "";
+  var status = b.status || "Mixed";
+  var sc = status === "Legit" ? "l" : status === "Sourced" ? "s" : "m";
+  var ic = status === "Legit" ? "\u2705" : status === "Sourced" ? "\uD83D\uDD34" : "\uD83D\uDFE1";
+
+  var rbox = document.createElement("div");
+  rbox.className = "rbox";
+  
+  // AI badge
+  var aibadge = document.createElement("div");
+  aibadge.style.cssText = "background:rgba(66,133,244,.12);border:1px solid rgba(66,133,244,.4);color:#4285f4;font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:10px;";
+  aibadge.textContent = "\u2728 GEMINI AI LOOKUP - Not in local database";
+  rbox.appendChild(aibadge);
+
+  var h3 = document.createElement("h3");
+  h3.textContent = ic + " " + (b.name || "Unknown Bourbon");
+  rbox.appendChild(h3);
+
+  var dist = document.createElement("p");
+  dist.style.cssText = "color:var(--text2);font-size:12px;margin-bottom:6px;";
+  dist.textContent = "Distiller: " + (b.distiller || "Unknown");
+  rbox.appendChild(dist);
+
+  var pill = document.createElement("span");
+  pill.className = "pill p" + sc;
+  pill.textContent = status.toUpperCase();
+  rbox.appendChild(pill);
+
+  var hr = document.createElement("hr");
+  hr.style.cssText = "border:none;border-top:1px solid var(--gold3);margin:12px 0;";
+  rbox.appendChild(hr);
+
+  if (b.proof) {
+    var pp = document.createElement("p");
+    pp.style.cssText = "font-size:12px;color:var(--text2);margin-bottom:4px;";
+    pp.textContent = "Proof: " + b.proof + "\u00B0" + (b.age ? " \u00B7 Age: " + b.age + " yr" : " \u00B7 NAS");
+    rbox.appendChild(pp);
+  }
+  if (b.msrp) {
+    var mp = document.createElement("p");
+    mp.style.cssText = "font-size:12px;color:var(--text2);margin-bottom:4px;";
+    mp.textContent = "MSRP: $" + b.msrp;
+    rbox.appendChild(mp);
+  }
+  if (b.notes) {
+    var np = document.createElement("p");
+    np.style.cssText = "margin-top:8px;font-size:12px;color:var(--text2);line-height:1.5;";
+    np.textContent = b.notes;
+    rbox.appendChild(np);
+  }
+
+  var verdict = document.createElement("div");
+  verdict.style.marginTop = "10px";
+  verdict.innerHTML = buildVerdict(code, b);
+  rbox.appendChild(verdict);
+
+  // Action buttons
+  var actDiv = document.createElement("div");
+  actDiv.style.cssText = "display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;";
+
+  var saveBtn = document.createElement("button");
+  saveBtn.className = "sbtn";
+  saveBtn.style.cssText = "padding:9px 18px;font-size:12px;";
+  saveBtn.textContent = "\uD83D\uDCBE Save to Database";
+  saveBtn.onclick = function() {
+    var saveData = {name: b.name||"Unknown", status: b.status||"Mixed", distiller: b.distiller||"", notes: (b.notes||"") + " [Auto-added via Gemini AI lookup]", timestamp: Date.now()};
+    if (b.type) saveData.type = b.type;
+    if (b.proof) saveData.proof = String(b.proof);
+    if (b.age) saveData.age = String(b.age);
+    if (b.msrp) saveData.msrp = String(b.msrp);
+    db.ref("bourbons/" + code).set(saveData)
+      .then(function() { alert("Saved to database!"); doLookup(code); })
+      .catch(function(e) { alert("Error: " + e.message); });
+  };
+  actDiv.appendChild(saveBtn);
+
+  var inC = COL.hasOwnProperty(code), inW = WANT.hasOwnProperty(code);
+  var colBtn = document.createElement("button");
+  colBtn.className = "abtn " + (inC ? "abtn-del" : "abtn-add");
+  colBtn.textContent = inC ? "Remove from Collection" : "+ My Collection";
+  colBtn.onclick = function() { toggleCol(code, b); };
+  actDiv.appendChild(colBtn);
+
+  var wantBtn = document.createElement("button");
+  wantBtn.className = "abtn " + (inW ? "abtn-del" : "abtn-want");
+  wantBtn.textContent = inW ? "Remove from Want List" : "\u2B50 Want List";
+  wantBtn.onclick = function() { toggleWant(code, b); };
+  actDiv.appendChild(wantBtn);
+
+  rbox.appendChild(actDiv);
+
+  // Google search link for verification
+  var glink = document.createElement("div");
+  glink.style.cssText = "margin-top:12px;text-align:center;";
+  glink.innerHTML = '<a href="https://www.google.com/search?q=' + encodeURIComponent((b.name || code) + ' bourbon distillery sourcing') + '" target="_blank" style="color:var(--text2);font-size:11px;text-decoration:none;">\uD83D\uDD0D Verify on Google</a>';
+  rbox.appendChild(glink);
+
+  var upcP = document.createElement("p");
+  upcP.style.cssText = "margin-top:8px;font-size:10px;color:var(--text3);";
+  upcP.textContent = "UPC: " + code;
+  rbox.appendChild(upcP);
+
+  // Scan again
+  var scanAgain = document.createElement("div");
+  scanAgain.style.cssText = "text-align:center;margin-top:14px;";
+  var sa = document.createElement("button");
+  sa.className = "sbtn";
+  sa.style.cssText = "padding:9px 24px;";
+  sa.textContent = "Scan Another";
+  sa.onclick = function() { toggleScan(); };
+  scanAgain.appendChild(sa);
+  rbox.appendChild(scanAgain);
+
+  rd.appendChild(rbox);
+}
+
+function showGoogleFallback(code, rd, errMsg) {
+  if (!rd) return;
+  rd.innerHTML = "";
+  var rbox = document.createElement("div");
+  rbox.className = "rbox";
+
+  var h3 = document.createElement("h3");
+  h3.textContent = "Not in Database";
+  rbox.appendChild(h3);
+
+  var em = document.createElement("p");
+  em.style.cssText = "color:var(--text2);font-size:12px;margin-bottom:10px;";
+  em.textContent = "UPC " + code + " not found locally or via AI. Search Google for more info:";
+  rbox.appendChild(em);
+
+  var gBtn = document.createElement("a");
+  gBtn.href = "https://www.google.com/search?q=" + encodeURIComponent("bourbon whiskey UPC " + code + " distillery");
+  gBtn.target = "_blank";
+  gBtn.className = "sbtn";
+  gBtn.style.cssText = "padding:9px 22px;display:block;margin:0 auto 8px;text-decoration:none;text-align:center;";
+  gBtn.textContent = "\uD83D\uDD0D Search Google";
+  rbox.appendChild(gBtn);
+
+  var addBtn = document.createElement("button");
+  addBtn.className = "sbtn";
+  addBtn.style.cssText = "padding:9px 22px;background:transparent;color:var(--goldb);border:1px solid var(--gold2);display:block;margin:0 auto 8px;";
+  addBtn.textContent = "Add This Bourbon Manually";
+  addBtn.onclick = function() { openAdmin(code); };
+  rbox.appendChild(addBtn);
+
+  var againBtn = document.createElement("button");
+  againBtn.className = "sbtn";
+  againBtn.style.cssText = "padding:9px 22px;background:transparent;color:var(--text2);border:1px solid var(--gold3);display:block;margin:0 auto;";
+  againBtn.textContent = "Scan Again";
+  againBtn.onclick = function() { toggleScan(); };
+  rbox.appendChild(againBtn);
+
+  rd.appendChild(rbox);
+}
+
+
 window.onload=function(){go(0);};
 </script>
 </body>
 </html>
+
