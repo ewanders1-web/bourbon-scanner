@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <title>Bourbon Truth Scanner</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gtatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <style>
@@ -807,10 +807,14 @@ function showGoogleFallback(code, rd, errMsg) {
   var h3 = document.createElement("h3");
   h3.textContent = "Not in Database";
   rbox.appendChild(h3);
+  var upcP = document.createElement("p");
+  upcP.style.cssText = "margin-top:5px;font-size:11px;color:var(--text3);letter-spacing:.05em;";
+  upcP.textContent = "UPC: " + code;
+  rbox.appendChild(upcP);
 
   var em = document.createElement("p");
   em.style.cssText = "color:var(--text2);font-size:12px;margin-bottom:10px;";
-  em.textContent = "UPC " + code + " not found locally or via AI. Search Google for more info:";
+  em.textContent = "Not found locally or via Gemini AI. Search Google for more info:";
   rbox.appendChild(em);
 
   var gBtn = document.createElement("a");
